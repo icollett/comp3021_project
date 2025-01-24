@@ -18,7 +18,7 @@ app.use(express.json());
  * @openapi
  * /:
  *   get:
- *     summary: Retrieve a list of tasks
+ *     summary: Hello world!
  *     tags: [Home]
  *     responses:
  *       200:
