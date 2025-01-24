@@ -14,7 +14,16 @@ setupSwagger(app);
 app.use(morgan("combined"));
 app.use(express.json());
 
-// respond to GET request at endpoint "/" with message
+/**
+ * @openapi
+ * /:
+ *   get:
+ *     summary: Retrieve a list of tasks
+ *     tags: [Home]
+ *     responses:
+ *       200:
+ *         description: Hello World!
+ */
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
