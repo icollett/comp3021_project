@@ -30,7 +30,7 @@ app.get("/", (req, res) => {
  *    200:
  *     description: The application's status, uptime, the current timestamp, and version
  */
-app.get("/api/v1/health", (req, res) => {
+app.get("/health", (req, res) => {
   res.json({
     status: "OK",
     uptime: process.uptime(),
@@ -50,4 +50,4 @@ const server: Server = app.listen(PORT, () => {
 });
 
 // export app and server for testing
-export default app;
+export {app, server};
