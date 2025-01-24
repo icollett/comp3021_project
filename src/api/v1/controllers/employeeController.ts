@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
-import * as employeeService from "../services/itemService";
-import type { Employee } from "../services/itemService";
+import * as employeeService from "../services/employeeService";
+import type { Employee } from "../services/employeeService";
 
 /**
- * @description Get all items.
+ * @description Get all Employees.
  * @route GET /
  * @returns {Promise<void>}
  */
