@@ -10,4 +10,10 @@ const router: Router = express.Router();
  */
 router.get("/", employeeController.getAllEmployees);
 
+/**
+ * @route POST /
+ * @description Create a new employee.
+ */
+router.post("/", employeeController.createEmployee);
+
 export default router;
