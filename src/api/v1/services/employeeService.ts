@@ -3,13 +3,13 @@
  * @description Represents an Employee object.
  */
 export type Employee = {
-    id: string,
+    id: number,
     name: string,
     position: string,
     department: string,
     email: string,
     phone: string,
-    branchID: string,
+    branchID: number,
 };
 
 const employees: Employee[] = [];
@@ -33,9 +33,9 @@ export const createEmployee = async (employee: {
     department: string;
     email: string;
     phone: string;
-    branchID: string;
+    branchID: number;
 }): Promise<Employee> => {
-    const newEmployee: Employee = { id: (employees.length +1).toString(), ...employee };
+    const newEmployee: Employee = { id: employees.length +1, ...employee };
 
     // adding the new employee to the global scoped array of Items
     employees.push(newEmployee);
