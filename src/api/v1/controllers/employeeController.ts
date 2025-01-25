@@ -40,3 +40,26 @@ export const createEmployee = async (
         next(error);
     }
 };
+
+/**
+ * @description Update an existing employee.
+ * @route PUT /:id
+ * @returns {Promise<void>}
+ */
+export const updateEmployee = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        // call the itemService by passing the id from thge url path and the body of the request
+        const updatedEmployee: Employee = await employeeService.updateEmployee(
+            req.params.id,
+            req.body
+        );
+
+        res.status(200).json({ message: "Employee Updated", data: updatedEmployee });
+    } catch (error) {
+        next(error);
+    }
+};

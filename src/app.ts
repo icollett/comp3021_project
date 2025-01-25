@@ -50,7 +50,7 @@ app.get("/health", (req, res) => {
   // send JSON response with status, server uptime, current time, API version
 });
 
-app.use("/api/v1/items", employeeRoutes);
+app.use("/api/v1/employees", employeeRoutes);
 
 // initialize port as either string read from .env, or 3000 by default
 const PORT: string | 3000 = process.env.PORT || 3000;

@@ -16,4 +16,37 @@ router.get("/", employeeController.getAllEmployees);
  */
 router.post("/", employeeController.createEmployee);
 
+/**
+ * @route PUT /:id
+ * @description Update an existing item.
+ * @note This couyd be a bit of information I want to add
+ *
+ * @openapi
+ * /api/v1/employees/{id}:
+ *   put:
+ *     summary: Update an existing employee
+ *     tags: [Employee]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the employee to update
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: The updated employee
+ */
+router.put("/:id", employeeController.updateEmployee);
+
 export default router;

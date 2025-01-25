@@ -19,7 +19,7 @@ describe("Employee Controller", () => {
     describe("getAllEmployees", () => {
         it("should handle successful operation", async () => {
             const mockItems: employeeService.Employee[] = [
-                { id: 1, name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: 1},
+                { id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
             ];
 
             (employeeService.getAllEmployees as jest.Mock).mockResolvedValue(mockItems);
@@ -41,18 +41,18 @@ describe("Employee Controller", () => {
     describe("createEmployee", () => {
         it("should handle successful operation", async () => {
             const mockItems = {
-                id: 1,
+                id: "1",
                 name: "Alice Johnson",
                 position: "Branch Manager",
                 department: "Management",
                 email: "alice.johnson@pixell-river.com",
                 phone: "604-555-0148",
-                branchID: 1
+                branchID: "1"
             };
 
             (employeeService.createEmployee as jest.Mock).mockResolvedValue(mockItems);
 
-            mockReq = { params: {}, body: {name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: 1} };
+            mockReq = { params: {}, body: {name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"} };
             await employeeController.createEmployee(
                 mockReq as Request,
                 mockRes as Response,
@@ -62,6 +62,27 @@ describe("Employee Controller", () => {
             expect(mockRes.status).toHaveBeenCalledWith(201);
             expect(mockRes.json).toHaveBeenCalledWith({
                 message: "Employee Created",
+                data: mockItems,
+            });
+        });
+    });
+
+    describe("updateEmployee", () => {
+        it("should handle successful operation", async () => {
+            const mockItems = {name: "Alice Jackson", branchID: "3"};
+
+            (employeeService.updateEmployee as jest.Mock).mockResolvedValue(mockItems);
+
+            mockReq = { params: {id: "1"}, body: mockItems };
+            await employeeController.updateEmployee(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockRes.status).toHaveBeenCalledWith(200);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Employee Updated",
                 data: mockItems,
             });
         });
