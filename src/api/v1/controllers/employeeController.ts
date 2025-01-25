@@ -20,3 +20,23 @@ export const getAllEmployees = async (
         next(error);
     }
 };
+
+/**
+ * @description Create a new employee.
+ * @route POST /
+ * @returns {Promise<void>}
+ */
+export const createEmployee = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        // call the employeeService by passing the body of the request
+        const newEmployee: Employee = await employeeService.createEmployee(req.body);
+
+        res.status(201).json({ message: "Employee Created", data: newEmployee });
+    } catch (error) {
+        next(error);
+    }
+};
