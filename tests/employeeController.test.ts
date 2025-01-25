@@ -4,7 +4,7 @@ import * as employeeService from "../src/api/v1/services/employeeService";
 
 jest.mock("../src/api/v1/services/employeeService");
 
-describe("Item Controller", () => {
+describe("Employee Controller", () => {
     let mockReq: Partial<Request>;
     let mockRes: Partial<Response>;
     let mockNext: NextFunction;
