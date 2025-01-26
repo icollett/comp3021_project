@@ -18,8 +18,8 @@ router.post("/", employeeController.createEmployee);
 
 /**
  * @route PUT /:id
- * @description Update an existing item.
- * @note This couyd be a bit of information I want to add
+ * @description Update an existing employee.
+ * @note This could be a bit of information I want to add
  *
  * @openapi
  * /api/v1/employees/{id}:
@@ -51,7 +51,7 @@ router.put("/:id", employeeController.updateEmployee);
 
 /**
  * @route DELETE /:id
- * @description Delete an item.
+ * @description Delete an employee.
  */
 router.delete("/:id", employeeController.deleteEmployee);
 

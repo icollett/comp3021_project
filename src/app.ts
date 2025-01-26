@@ -5,6 +5,7 @@ import morgan from "morgan";
 // import setupSwagger endpoint
 import setupSwagger from "../config/swagger";
 import employeeRoutes from "./api/v1/routes/employeeRoutes";
+import branchRoutes from "./api/v1/routes/branchRoutes";
 
 // initialize the express application
 const app: Express = express();
@@ -51,6 +52,7 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/v1/employees", employeeRoutes);
+app.use("/api/v1/branches", branchRoutes);
 
 // initialize port as either string read from .env, or 3000 by default
 const PORT: string | 3000 = process.env.PORT || 3000;
