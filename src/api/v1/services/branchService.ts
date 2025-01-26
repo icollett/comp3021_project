@@ -10,6 +10,7 @@ export type Branch = {
 };
 
 const branches: Branch[] = [];
+let idCounter: number = 0;
 
 /**
  * @description Get all branches.
@@ -29,7 +30,8 @@ export const createBranch = async (branch: {
     address: string,
     phone: string,
 }): Promise<Branch> => {
-    const newBranch: Branch = { id: (branches.length +1).toString(), ...branch };
+    idCounter += 1;
+    const newBranch: Branch = { id: (idCounter).toString(), ...branch };
 
     // adding the new branch to the global scoped array of Items
     branches.push(newBranch);

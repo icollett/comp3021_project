@@ -13,6 +13,7 @@ export type Employee = {
 };
 
 const employees: Employee[] = [];
+let idCounter: number = 0;
 
 /**
  * @description Get all employees.
@@ -35,7 +36,8 @@ export const createEmployee = async (employee: {
     phone: string;
     branchID: string;
 }): Promise<Employee> => {
-    const newEmployee: Employee = { id: (employees.length +1).toString(), ...employee };
+    idCounter += 1;
+    const newEmployee: Employee = { id: (idCounter).toString(), ...employee };
 
     // adding the new employee to the global scoped array of Items
     employees.push(newEmployee);
