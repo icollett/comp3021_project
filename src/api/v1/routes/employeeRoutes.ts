@@ -49,4 +49,10 @@ router.post("/", employeeController.createEmployee);
  */
 router.put("/:id", employeeController.updateEmployee);
 
+/**
+ * @route DELETE /:id
+ * @description Delete an item.
+ */
+router.delete("/:id", employeeController.deleteEmployee);
+
 export default router;
