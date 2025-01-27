@@ -20,6 +20,14 @@ export type BranchEmployees = {
     staff: Employee[]
 };
 
+/**
+ * @interface DepartmentEmployees
+ * @description Represents an list of Employees working in a certain department.
+ */
+export type DepartmentEmployees = {
+    staff: Employee[]
+};
+
 const employees: Employee[] = [];
 let idCounter: number = 0;
 
@@ -119,10 +127,9 @@ export const deleteEmployee = async (id: string): Promise<void> => {
 };
 
 /**
- * @description Get an employee using their ID.
- * @param {string} id - The ID of the employee to find.
+ * @description Get an list of Employees using their branch ID.
+ * @param {string} id - The branch ID of the Employees to find.
  * @returns {Promise<BranchEmployees>}
- * @throws {Error} If the employee with the given ID is not found.
  */
 export const getBranchEmployees = async (
     id: string
@@ -135,4 +142,22 @@ export const getBranchEmployees = async (
     }
 
     return branchEmployees;
+};
+
+/**
+ * @description Get an list of Employees using their department name.
+ * @param {string} department - The name of the department to get the staff list of.
+ * @returns {Promise<DepartmentEmployees>}
+ */
+export const getDepartmentEmployees = async (
+    department: string
+): Promise<DepartmentEmployees> => {
+
+    let departmntEmployees: DepartmentEmployees = {staff: []};
+    for (const element of employees) {
+        if (element.department === department)
+            departmntEmployees.staff.push(element);
+    }
+
+    return departmntEmployees;
 };

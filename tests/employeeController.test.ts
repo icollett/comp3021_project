@@ -170,4 +170,31 @@ describe("Employee Controller", () => {
             });
         });
     });
+
+    describe("getDepartmentEmployees", () => {
+        it("should handle successful operation", async () => {
+            const mockItems: employeeService.Employee[] = [
+                { id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
+                { id: "2", name: "Amandeep Singh", position: "Customer Service Representative", department: "Customer Service", email: "amandeep.singh@pixell-river.com", phone: "780-555-0172", branchID: "2"},
+                { id: "3", name: "Maria Garcia", position: "Loan Officer", department: "Loans", email: "maria.garcia@pixell-river.com", phone: "204-555-0193", branchID: "3"},
+                { id: "4", name: "James Wilson", position: "IT Support Specialist", department: "IT", email: "james.wilson@pixell-river.com", phone: "604-555-0134	", branchID: "1"},
+                { id: "8", name: "Chen Wei", position: "Senior Loan Officer", department: "Loans", email: "chen.wei@pixell-river.com", phone: "204-555-0218", branchID: "5"},
+            ];
+
+            (employeeService.getDepartmentEmployees as jest.Mock).mockResolvedValue(mockItems);
+
+            mockReq = { params: {department: "Loans"}, body: {}};
+            await employeeController.getDepartmentEmployees(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockRes.status).toHaveBeenCalledWith(200);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Department Staff Found",
+                data: mockItems,
+            });
+        });
+    });
 });

@@ -85,7 +85,7 @@ router.delete("/:id", employeeController.deleteEmployee);
  *
  * @openapi
  * /api/v1/employees/branch/{id}:
- *   put:
+ *   get:
  *     summary: Find all employees that work at branchID location.
  *     tags: [Employee]
  *     parameters:
@@ -100,5 +100,28 @@ router.delete("/:id", employeeController.deleteEmployee);
  *         description: A coollection of Employees that work at branch location ID.
  */
 router.get("/branch/:id", employeeController.getBranchEmployees);
+
+/**
+ * @route GET /department/:id
+ * @description Find employees by department name.
+ * @note This could be a bit of information I want to find
+ *
+ * @openapi
+ * /api/v1/employees/department/{department}:
+ *   get:
+ *     summary: Find all employees that work in a department.
+ *     tags: [Employee]
+ *     parameters:
+ *       - in: path
+ *         name: department
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Department name you want the staff list of.
+ *     responses:
+ *       200:
+ *         description: A coollection of Employees that work in said department.
+ */
+router.get("/department/:department", employeeController.getDepartmentEmployees);
 
 export default router;

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as employeeService from "../services/employeeService";
-import type { Employee, BranchEmployees } from "../services/employeeService";
+import type { Employee, BranchEmployees, DepartmentEmployees } from "../services/employeeService";
 
 /**
  * @description Get all Employees.
@@ -122,6 +122,28 @@ export const getBranchEmployees = async (
         );
 
         res.status(200).json({ message: "Branch Staff Found", data: branchEmployees });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @description Fetch a collection of Employees a department name.
+ * @route GET /department/:department
+ * @returns {Promise<void>}
+ */
+export const getDepartmentEmployees = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        // call the employeeService by passing the department from the url path
+        const departmentEmployees: DepartmentEmployees = await employeeService.getDepartmentEmployees(
+            req.params.department
+        );
+
+        res.status(200).json({ message: "Department Staff Found", data: departmentEmployees });
     } catch (error) {
         next(error);
     }
