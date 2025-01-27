@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as employeeService from "../services/employeeService";
-import type { Employee } from "../services/employeeService";
+import type { Employee, BranchEmployees } from "../services/employeeService";
 
 /**
  * @description Get all Employees.
@@ -52,7 +52,7 @@ export const getEmployee = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        // call the itemService by passing the id from the url path and the body of the request
+        // call the employeeService by passing the id from the url path and the body of the request
         const foundEmployee: Employee = await employeeService.getEmployee(
             req.params.id
         );
@@ -74,7 +74,7 @@ export const updateEmployee = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        // call the itemService by passing the id from the url path and the body of the request
+        // call the employeeService by passing the id from the url path and the body of the request
         const updatedEmployee: Employee = await employeeService.updateEmployee(
             req.params.id,
             req.body
@@ -100,6 +100,28 @@ export const deleteEmployee = async (
         await employeeService.deleteEmployee(req.params.id);
 
         res.status(200).json({ message: "Employee Deleted" });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
+ * @description Fetch a collection of Employees using a branch ID.
+ * @route GET /branch/:id
+ * @returns {Promise<void>}
+ */
+export const getBranchEmployees = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        // call the employeeService by passing the id from the url path
+        const branchEmployees: BranchEmployees = await employeeService.getBranchEmployees(
+            req.params.id
+        );
+
+        res.status(200).json({ message: "Branch Staff Found", data: branchEmployees });
     } catch (error) {
         next(error);
     }

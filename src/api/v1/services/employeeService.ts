@@ -12,6 +12,14 @@ export type Employee = {
     branchID: string,
 };
 
+/**
+ * @interface BranchEmployees
+ * @description Represents an list of Employees working at a certain branch.
+ */
+export type BranchEmployees = {
+    staff: Employee[]
+};
+
 const employees: Employee[] = [];
 let idCounter: number = 0;
 
@@ -108,4 +116,23 @@ export const deleteEmployee = async (id: string): Promise<void> => {
     }
 
     employees.splice(index, 1);
+};
+
+/**
+ * @description Get an employee using their ID.
+ * @param {string} id - The ID of the employee to find.
+ * @returns {Promise<BranchEmployees>}
+ * @throws {Error} If the employee with the given ID is not found.
+ */
+export const getBranchEmployees = async (
+    id: string
+): Promise<BranchEmployees> => {
+
+    let branchEmployees: BranchEmployees = {staff: []};
+    for (const element of employees) {
+        if (element.id === id)
+            branchEmployees.staff.push(element);
+    }
+
+    return branchEmployees;
 };

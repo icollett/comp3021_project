@@ -78,4 +78,27 @@ router.put("/:id", employeeController.updateEmployee);
  */
 router.delete("/:id", employeeController.deleteEmployee);
 
+/**
+ * @route GET /branch/:id
+ * @description Find employees by branchID.
+ * @note This could be a bit of information I want to find
+ *
+ * @openapi
+ * /api/v1/employees/branch/{id}:
+ *   put:
+ *     summary: Find all employees that work at branchID location.
+ *     tags: [Employee]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Branch ID of the location you want the staff list of.
+ *     responses:
+ *       200:
+ *         description: A coollection of Employees that work at branch location ID.
+ */
+router.get("/branch/:id", employeeController.getBranchEmployees);
+
 export default router;

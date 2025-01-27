@@ -8,6 +8,7 @@ jest.mock("../src/api/v1/controllers/employeeController", () => ({
     getEmployee: jest.fn((req, res) => res.status(200).send()),
 	updateEmployee: jest.fn((req, res) => res.status(200).send()),
 	deleteEmployee: jest.fn((req, res) => res.status(200).send()),
+    getBranchEmployees: jest.fn((req, res) => res.status(200).send()),
 }));
 
 describe("Employee API Endpoints", () => {
@@ -36,6 +37,11 @@ describe("Employee API Endpoints", () => {
     it("should call deleteEmployee controller", async () => {
         await request(app).delete("/api/v1/employees/1");
         expect(employeeController.deleteEmployee).toHaveBeenCalled();
+    });
+
+    it("should call getEmployee controller", async () => {
+        await request(app).get("/api/v1/employees/branch/1");
+        expect(employeeController.getBranchEmployees).toHaveBeenCalled();
     });
 });
 
