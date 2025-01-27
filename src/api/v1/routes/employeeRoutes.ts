@@ -17,6 +17,29 @@ router.get("/", employeeController.getAllEmployees);
 router.post("/", employeeController.createEmployee);
 
 /**
+ * @route GET /:id
+ * @description Find an employee by ID.
+ * @note This could be a bit of information I want to find
+ *
+ * @openapi
+ * /api/v1/employees/{id}:
+ *   put:
+ *     summary: Find an employee by an ID value.
+ *     tags: [Employee]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the employee to find
+ *     responses:
+ *       200:
+ *         description: The updated employee
+ */
+router.get("/:id", employeeController.getEmployee);
+
+/**
  * @route PUT /:id
  * @description Update an existing employee.
  * @note This could be a bit of information I want to add

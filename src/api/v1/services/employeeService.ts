@@ -45,6 +45,25 @@ export const createEmployee = async (employee: {
 };
 
 /**
+ * @description Get an employee using their ID.
+ * @param {string} id - The ID of the employee to find.
+ * @returns {Promise<Employee>}
+ * @throws {Error} If the employee with the given ID is not found.
+ */
+export const getEmployee = async (
+    id: string
+): Promise<Employee> => {
+    // retieve the employee's index from the employees array by comparing the employee ids
+    const index: number = employees.findIndex((i) => i.id === id);
+    // if the index is not found we expects a -1
+    if (index === -1) {
+        throw new Error(`Employee with ID ${id} not found`);
+    }
+
+    return employees[index];
+};
+
+/**
  * @description Update an existing employee.
  * @param {string} id - The ID of the employee to update.
  * @param {{ name: string; position: string; department: string; email: string; phone: string; branchID: string; }} employee - The updated employee data.

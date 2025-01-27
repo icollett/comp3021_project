@@ -67,6 +67,35 @@ describe("Employee Controller", () => {
         });
     });
 
+    describe("getEmployee", () => {
+        it("should handle successful operation", async () => {
+            const mockItems = {
+                id: "1",
+                name: "Alice Johnson",
+                position: "Branch Manager",
+                department: "Management",
+                email: "alice.johnson@pixell-river.com",
+                phone: "604-555-0148",
+                branchID: "1"
+            };
+
+            (employeeService.getEmployee as jest.Mock).mockResolvedValue(mockItems);
+
+            mockReq = { params: {id: "1"}, body: {}};
+            await employeeController.getEmployee(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockRes.status).toHaveBeenCalledWith(200);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Employee Found",
+                data: mockItems,
+            });
+        });
+    });
+
     describe("updateEmployee", () => {
         it("should handle successful operation", async () => {
             const mockItems = {name: "Alice Jackson", branchID: "3"};

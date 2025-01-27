@@ -5,6 +5,7 @@ import * as employeeController from "../src/api/v1/controllers/employeeControlle
 jest.mock("../src/api/v1/controllers/employeeController", () => ({
 	getAllEmployees: jest.fn((req, res) => res.status(200).send()),
 	createEmployee: jest.fn((req, res) => res.status(201).send()),
+    getEmployee: jest.fn((req, res) => res.status(200).send()),
 	updateEmployee: jest.fn((req, res) => res.status(200).send()),
 	deleteEmployee: jest.fn((req, res) => res.status(200).send()),
 }));
@@ -19,6 +20,11 @@ describe("Employee API Endpoints", () => {
     it("should call getAllEmployees controller", async () => {
         await request(app).get("/api/v1/employees");
         expect(employeeController.getAllEmployees).toHaveBeenCalled();
+    });
+
+    it("should call getEmployee controller", async () => {
+        await request(app).get("/api/v1/employees/1");
+        expect(employeeController.getEmployee).toHaveBeenCalled();
     });
 
     it("should call updateEmployee controller", async () => {

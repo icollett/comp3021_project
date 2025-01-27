@@ -42,6 +42,28 @@ export const createEmployee = async (
 };
 
 /**
+ * @description Fetch an employee by using an ID.
+ * @route GET /:id
+ * @returns {Promise<void>}
+ */
+export const getEmployee = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        // call the itemService by passing the id from the url path and the body of the request
+        const foundEmployee: Employee = await employeeService.getEmployee(
+            req.params.id
+        );
+
+        res.status(200).json({ message: "Employee Found", data: foundEmployee });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
  * @description Update an existing employee.
  * @route PUT /:id
  * @returns {Promise<void>}
