@@ -42,6 +42,28 @@ export const createBranch = async (
 };
 
 /**
+ * @description Find an existing branch by ID.
+ * @route GET /:id
+ * @returns {Promise<void>}
+ */
+export const getBranch = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        // call the branchService by passing the id from the url path and the body of the request
+        const foundBranch: Branch = await branchService.getBranch(
+            req.params.id
+        );
+
+        res.status(200).json({ message: "Branch Found", data: foundBranch });
+    } catch (error) {
+        next(error);
+    }
+};
+
+/**
  * @description Update an existing branch.
  * @route PUT /:id
  * @returns {Promise<void>}

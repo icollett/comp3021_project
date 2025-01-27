@@ -69,6 +69,32 @@ describe("Branch Controller", () => {
         });
     });
 
+    describe("getBranch", () => {
+        it("should handle successful operation", async () => {
+            const mockItems = {
+                id: "1",
+                name: "Vancouver Branch",
+                address: "1300 Burrard St, Vancouver, BC, V6Z 2C7",
+                phone: "604-456-0022",
+            };
+
+            (branchService.getBranch as jest.Mock).mockResolvedValue(mockItems);
+
+            mockReq = { params: {id: "1"}, body: {} };
+            await branchController.getBranch(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockRes.status).toHaveBeenCalledWith(200);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                message: "Branch Found",
+                data: mockItems
+            });
+        });
+    });
+
     describe("updateBranch", () => {
         it("should handle successful operation", async () => {
             const mockItems = {

@@ -17,6 +17,29 @@ router.get("/", branchController.getAllBranches);
 router.post("/", branchController.createBranch);
 
 /**
+ * @route GET /:id
+ * @description Find an existing branch.
+ * @note This could be a bit of information I want to find.
+ *
+ * @openapi
+ * /api/v1/branches/{id}:
+ *   put:
+ *     summary: Find an existing branch using a branchID.
+ *     tags: [Employee]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the branch to find.
+ *     responses:
+ *       200:
+ *         description: The updated branch
+ */
+router.get("/:id", branchController.getBranch);
+
+/**
  * @route PUT /:id
  * @description Update an existing branch.
  * @note This could be a bit of information I want to add

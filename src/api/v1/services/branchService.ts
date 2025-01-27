@@ -39,6 +39,25 @@ export const createBranch = async (branch: {
 };
 
 /**
+ * @description Find an existing branch using an ID.
+ * @param {string} id - The ID of the branch to find.
+ * @returns {Promise<Branch>}
+ * @throws {Error} If the branch with the given ID is not found.
+ */
+export const getBranch = async (
+    id: string
+): Promise<Branch> => {
+    // retieve the branch's index from the branches array by comparing the branch ids
+    const index: number = branches.findIndex((i) => i.id === id);
+    // if the index is not found we expects a -1
+    if (index === -1) {
+        throw new Error(`Branch with ID ${id} not found`);
+    }
+
+    return branches[index];
+};
+
+/**
  * @description Update an existing branch.
  * @param {string} id - The ID of the branch to update.
  * @param {{ name: string; address: string; phone: string; }} branch - The updated branch data.

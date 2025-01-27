@@ -5,6 +5,7 @@ import * as branchController from "../src/api/v1/controllers/branchController";
 jest.mock("../src/api/v1/controllers/branchController", () => ({
 	getAllBranches: jest.fn((req, res) => res.status(200).send()),
 	createBranch: jest.fn((req, res) => res.status(201).send()),
+    getBranch: jest.fn((req, res) => res.status(200).send()),
 	updateBranch: jest.fn((req, res) => res.status(200).send()),
 	deleteBranch: jest.fn((req, res) => res.status(200).send()),
 }));
@@ -19,6 +20,11 @@ describe("Branch API Endpoints", () => {
     it("should call getAllBranchs controller", async () => {
         await request(app).get("/api/v1/branches");
         expect(branchController.getAllBranches).toHaveBeenCalled();
+    });
+
+    it("should call getBranch controller", async () => {
+        await request(app).get("/api/v1/branches/1");
+        expect(branchController.getBranch).toHaveBeenCalled();
     });
 
     it("should call updateBranch controller", async () => {
