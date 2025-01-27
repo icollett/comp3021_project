@@ -135,7 +135,7 @@ export const getBranchEmployees = async (
     id: string
 ): Promise<BranchEmployees> => {
 
-    let branchEmployees: BranchEmployees = {staff: []};
+    const branchEmployees: BranchEmployees = {staff: []};
     for (const element of employees) {
         if (element.id === id)
             branchEmployees.staff.push(element);
@@ -153,11 +153,11 @@ export const getDepartmentEmployees = async (
     department: string
 ): Promise<DepartmentEmployees> => {
 
-    let departmntEmployees: DepartmentEmployees = {staff: []};
+    const departmentEmployees: DepartmentEmployees = {staff: []};
     for (const element of employees) {
         if (element.department === department)
-            departmntEmployees.staff.push(element);
+            departmentEmployees.staff.push(element);
     }
 
-    return departmntEmployees;
+    return departmentEmployees;
 };
