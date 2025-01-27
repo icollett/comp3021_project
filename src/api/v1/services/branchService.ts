@@ -9,7 +9,7 @@ export type Branch = {
     phone: string,
 };
 
-const branches: Branch[] = [];
+export const branches: Branch[] = [];
 let idCounter: number = 0;
 
 /**

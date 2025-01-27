@@ -12,6 +12,12 @@ export type Employee = {
     branchID: string,
 };
 
+// function for jest test purposes
+export function clearEmployeees(): void {
+    employees.splice(0, employees.length);
+    idCounter = 0;
+};
+
 /**
  * @interface BranchEmployees
  * @description Represents an list of Employees working at a certain branch.
@@ -28,7 +34,7 @@ export type DepartmentEmployees = {
     staff: Employee[]
 };
 
-const employees: Employee[] = [];
+export const employees: Employee[] = [];
 let idCounter: number = 0;
 
 /**
@@ -137,7 +143,7 @@ export const getBranchEmployees = async (
 
     const branchEmployees: BranchEmployees = {staff: []};
     for (const element of employees) {
-        if (element.id === id)
+        if (element.branchID === id)
             branchEmployees.staff.push(element);
     }
 
@@ -155,7 +161,7 @@ export const getDepartmentEmployees = async (
 
     const departmentEmployees: DepartmentEmployees = {staff: []};
     for (const element of employees) {
-        if (element.department === department)
+        if (element.department.toLowerCase() === department.toLowerCase())
             departmentEmployees.staff.push(element);
     }
 

@@ -30,10 +30,9 @@ app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
 
-// define GET route for health check
 /**
  * @openapi
- * /api/v1/health:
+ * /health:
  *  get:
  *   summary: Get health status of the application
  *   tags: [Health]
