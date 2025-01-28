@@ -6,13 +6,71 @@ const router: Router = express.Router();
 
 /**
  * @route GET /
- * @description Get all branches.
+ * @description Get all current branches.
+ * @note This could be a bit of information I want to find.
+ *
+ * @openapi
+ * /api/v1/branches/:
+ *   get:
+ *     summary: Get a list of all current branches.
+ *     tags: [Branch]
+ *     responses:
+ *       200:
+ *         description: List of current branches.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *                   address:
+ *                     type: string
+ *                   phone:
+ *                     type: string
  */
 router.get("/", branchController.getAllBranches);
 
 /**
  * @route POST /
  * @description Create a new branch.
+ * @openapi
+ * /api/v1/branches/:
+ *   post:
+ *     summary: Create a new branch.
+ *     tags: [Branch]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: The created branch.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 address:
+ *                   type: string
+ *                 phone:
+ *                   type: string
  */
 router.post("/", branchController.createBranch);
 
@@ -23,9 +81,9 @@ router.post("/", branchController.createBranch);
  *
  * @openapi
  * /api/v1/branches/{id}:
- *   put:
+ *   get:
  *     summary: Find an existing branch using a branchID.
- *     tags: [Employee]
+ *     tags: [Branch]
  *     parameters:
  *       - in: path
  *         name: id
@@ -35,7 +93,20 @@ router.post("/", branchController.createBranch);
  *         description: ID of the branch to find.
  *     responses:
  *       200:
- *         description: The updated branch
+ *         description: The branch with the requested ID.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 address:
+ *                   type: string
+ *                 phone:
+ *                   type: string
  */
 router.get("/:id", branchController.getBranch);
 
@@ -48,7 +119,7 @@ router.get("/:id", branchController.getBranch);
  * /api/v1/branches/{id}:
  *   put:
  *     summary: Update an existing branch
- *     tags: [Employee]
+ *     tags: [Branch]
  *     parameters:
  *       - in: path
  *         name: id
@@ -64,17 +135,48 @@ router.get("/:id", branchController.getBranch);
  *             properties:
  *               name:
  *                 type: string
- *               description:
+ *               address:
+ *                 type: string
+ *               phone:
  *                 type: string
  *     responses:
- *       200:
+ *       201:
  *         description: The updated branch
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 address:
+ *                   type: string
+ *                 phone:
+ *                   type: string
  */
 router.put("/:id", branchController.updateBranch);
 
 /**
  * @route DELETE /:id
  * @description Delete an branch.
+ * 
+ * @openapi
+ * /api/v1/branches/{id}:
+ *   delete:
+ *     summary: Delete an existing branch
+ *     tags: [Branch]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the branch to delete
+ *     responses:
+ *       200:
+ *         description: Branch deleted.
  */
 router.delete("/:id", branchController.deleteBranch);
 

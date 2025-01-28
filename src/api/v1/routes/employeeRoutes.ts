@@ -6,13 +6,90 @@ const router: Router = express.Router();
 
 /**
  * @route GET /
- * @description Get all employees.
+ * @description Get a list of all employees.
+ * 
+ * @openapi
+ * /api/v1/employees/:
+ *   get:
+ *     summary: Fetch a list of all current employees.
+ *     tags: [Employee]
+ *     responses:
+ *       200:
+ *         description: A list of employee objects.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                   name:
+ *                     type: string
+ *                   position:
+ *                     type: string
+ *                   department:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   phone:
+ *                     type: string
+ *                   branchID:
+ *                     type: string
  */
 router.get("/", employeeController.getAllEmployees);
 
 /**
  * @route POST /
  * @description Create a new employee.
+ * 
+ * @openapi
+ * /api/v1/employees/:
+ *   post:
+ *     summary: Create a new employee.
+ *     tags: [Employee]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               position:
+ *                 type: string
+ *               department:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *               branchID:
+ *                 type: string
+ *         description: Information needed to create an Employee.
+ *     responses:
+ *       200:
+ *         description: The employee with the specified ID.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 position:
+ *                   type: string
+ *                 department:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 phone:
+ *                   type: string
+ *                 branchID:
+ *                   type: string
  */
 router.post("/", employeeController.createEmployee);
 
@@ -23,7 +100,7 @@ router.post("/", employeeController.createEmployee);
  *
  * @openapi
  * /api/v1/employees/{id}:
- *   put:
+ *   get:
  *     summary: Find an employee by an ID value.
  *     tags: [Employee]
  *     parameters:
@@ -35,7 +112,26 @@ router.post("/", employeeController.createEmployee);
  *         description: ID of the employee to find
  *     responses:
  *       200:
- *         description: The updated employee
+ *         description: The employee with the specified ID.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 position:
+ *                   type: string
+ *                 department:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 phone:
+ *                   type: string
+ *                 branchID:
+ *                   type: string
  */
 router.get("/:id", employeeController.getEmployee);
 
@@ -64,17 +160,59 @@ router.get("/:id", employeeController.getEmployee);
  *             properties:
  *               name:
  *                 type: string
- *               description:
+ *               position:
+ *                 type: string
+ *               department:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *               branchID:
  *                 type: string
  *     responses:
  *       200:
  *         description: The updated employee
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *                 position:
+ *                   type: string
+ *                 department:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 phone:
+ *                   type: string
+ *                 branchID:
+ *                   type: string
  */
 router.put("/:id", employeeController.updateEmployee);
 
 /**
  * @route DELETE /:id
  * @description Delete an employee.
+ * @openapi
+ * /api/v1/employees/{id}:
+ *   delete:
+ *     summary: Delete an existing Employee
+ *     tags: [Employee]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: ID of the employee to delete
+ *     responses:
+ *       200:
+ *         description: Employee deleted.
  */
 router.delete("/:id", employeeController.deleteEmployee);
 
@@ -97,7 +235,33 @@ router.delete("/:id", employeeController.deleteEmployee);
  *         description: Branch ID of the location you want the staff list of.
  *     responses:
  *       200:
- *         description: A coollection of Employees that work at branch location ID.
+ *         description: A collection of Employees that work at branch location ID.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   staff:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                         name:
+ *                           type: string
+ *                         position:
+ *                           type: string
+ *                         department:
+ *                           type: string
+ *                         email:
+ *                           type: string
+ *                         phone:
+ *                           type: string
+ *                         branchID:
+ *                           type: string
  */
 router.get("/branch/:id", employeeController.getBranchEmployees);
 
@@ -120,7 +284,33 @@ router.get("/branch/:id", employeeController.getBranchEmployees);
  *         description: Department name you want the staff list of.
  *     responses:
  *       200:
- *         description: A coollection of Employees that work in said department.
+ *         description: A collection of Employees that work in said department.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   staff:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                         name:
+ *                           type: string
+ *                         position:
+ *                           type: string
+ *                         department:
+ *                           type: string
+ *                         email:
+ *                           type: string
+ *                         phone:
+ *                           type: string
+ *                         branchID:
+ *                           type: string
  */
 router.get("/department/:department", employeeController.getDepartmentEmployees);
 
