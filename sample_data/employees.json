@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Alice Johnson",
+        "position": "Branch Manager",
+        "department": "Management",
+        "email": "alice.johnson@pixell-river.com",
+        "phone": "604-555-0148",
+        "branchID": "1"
+    },
+    {
+        "name": "Amandeep Singh",
+        "position": "Customer Service Representative",
+        "department": "Customer Service",
+        "email": "amandeep.singh@pixell-river.com",
+        "phone": "780-555-0172",
+        "branchID": "2"
+    },
+    {
+        "name": "Maria Garcia",
+        "position": "Loan Officer",
+        "department": "Loans",
+        "email": "maria.garcia@pixell-river.com",
+        "phone": "204-555-0193",
+        "branchID": "3"
+    },
+    {
+        "name": "James Wilson",
+        "position": "IT Support Specialist",
+        "department": "IT",
+        "email": "james.wilson@pixell-river.com",
+        "phone": "604-555-0134",
+        "branchID": "1"
+    },
+    {
+        "name": "Linda Martinez",
+        "position": "Financial Advisor",
+        "department": "Advisory",
+        "email": "linda.martinez@pixell-river.com",
+        "phone": "780-555-0165",
+        "branchID": "2"
+    },
+    {
+        "name": "Michael Brown",
+        "position": "Teller",
+        "department": "Operations",
+        "email": "michael.brown@pixell-river.com",
+        "phone": "204-555-0187",
+        "branchID": "3"
+    },
+    {
+        "name": "Patricia Taylor",
+        "position": "Operations Manager",
+        "department": "Operations",
+        "email": "patricia.taylor@pixell-river.com",
+        "phone": "204-555-0204",
+        "branchID": "3"
+    },
+    {
+        "name": "Chen Wei",
+        "position": "Senior Loan Officer",
+        "department": "Loans",
+        "email": "chen.wei@pixell-river.com",
+        "phone": "204-555-0218",
+        "branchID": "5"
+    },
+    {
+        "name": "Charles Thomas",
+        "position": "Accountant",
+        "department": "Finance",
+        "email": "charles.thomas@pixell-river.com",
+        "phone": "204-555-0225",
+        "branchID": "5"
+    },
+    {
+        "name": "Elizabeth Jackson",
+        "position": "Marketing Specialist",
+        "department": "Marketing",
+        "email": "elizabeth.jackson@pixell-river.com",
+        "phone": "204-555-0237",
+        "branchID": "6"
+    }
+]
