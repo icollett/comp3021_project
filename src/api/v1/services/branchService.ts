@@ -1,13 +1,4 @@
-/**
- * @interface Branch
- * @description Represents an Branch object.
- */
-export type Branch = {
-    id: string,
-    name: string,
-    address: string,
-    phone: string,
-};
+import { Branch } from "../models/branchModel";
 
 export const branches: Branch[] = [];
 let idCounter: number = 0;

@@ -1,16 +1,4 @@
-/**
- * @interface Employee
- * @description Represents an Employee object.
- */
-export type Employee = {
-    id: string,
-    name: string,
-    position: string,
-    department: string,
-    email: string,
-    phone: string,
-    branchID: string,
-};
+import { Employee } from "../models/employeeModel";
 
 // function for jest test purposes
 export function clearEmployeees(): void {
