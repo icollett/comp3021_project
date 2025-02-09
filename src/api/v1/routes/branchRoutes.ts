@@ -1,6 +1,9 @@
 import express, { Router } from "express";
 import * as branchController from "../controllers/branchController";
 
+import { validateRequest } from "../middleware/validate";
+import { branchSchema } from "../schemas/branchValidation";
+
 // express Router instance created. This instance will group all the branch-related routes.
 const router: Router = express.Router();
 
@@ -72,7 +75,7 @@ router.get("/", branchController.getAllBranches);
  *                 phone:
  *                   type: string
  */
-router.post("/", branchController.createBranch);
+router.post("/", validateRequest(branchSchema), branchController.createBranch);
 
 /**
  * @route GET /:id
@@ -156,7 +159,7 @@ router.get("/:id", branchController.getBranch);
  *                 phone:
  *                   type: string
  */
-router.put("/:id", branchController.updateBranch);
+router.put("/:id", validateRequest(branchSchema), branchController.updateBranch);
 
 /**
  * @route DELETE /:id
