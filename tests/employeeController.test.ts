@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as employeeController from "../src/api/v1/controllers/employeeController";
 import * as employeeService from "../src/api/v1/services/employeeService";
+import { Employee } from "../src/api/v1/models/employeeModel";
 
 jest.mock("../src/api/v1/services/employeeService");
 
@@ -18,7 +19,7 @@ describe("Employee Controller", () => {
 
     describe("getAllEmployees", () => {
         it("should handle successful operation", async () => {
-            const mockItems: employeeService.Employee[] = [
+            const mockItems: Employee[] = [
                 { id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
             ];
 
@@ -147,7 +148,7 @@ describe("Employee Controller", () => {
 
     describe("getBranchEmployees", () => {
         it("should handle successful operation", async () => {
-            const mockItems: employeeService.Employee[] = [
+            const mockItems: Employee[] = [
                 { id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
                 { id: "2", name: "Amandeep Singh", position: "Customer Service Representative", department: "Customer Service", email: "amandeep.singh@pixell-river.com", phone: "780-555-0172", branchID: "2"},
                 { id: "3", name: "Maria Garcia", position: "Loan Officer", department: "Loans", email: "maria.garcia@pixell-river.com", phone: "204-555-0193", branchID: "3"},
@@ -173,7 +174,7 @@ describe("Employee Controller", () => {
 
     describe("getDepartmentEmployees", () => {
         it("should handle successful operation", async () => {
-            const mockItems: employeeService.Employee[] = [
+            const mockItems: Employee[] = [
                 { id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
                 { id: "2", name: "Amandeep Singh", position: "Customer Service Representative", department: "Customer Service", email: "amandeep.singh@pixell-river.com", phone: "780-555-0172", branchID: "2"},
                 { id: "3", name: "Maria Garcia", position: "Loan Officer", department: "Loans", email: "maria.garcia@pixell-river.com", phone: "204-555-0193", branchID: "3"},

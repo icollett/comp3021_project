@@ -1,5 +1,7 @@
 import * as employeeService from "../src/api/v1/services/employeeService";
 import { employees } from "../src/api/v1/services/employeeService";
+import { Employee } from "../src/api/v1/models/employeeModel";
+
 
 describe("Employee Service", () => {
     
@@ -14,14 +16,14 @@ describe("Employee Service", () => {
                 branchID: "1"
             };
 
-            const result: employeeService.Employee = await employeeService.createEmployee(testEmployee);
+            const result: Employee = await employeeService.createEmployee(testEmployee);
             expect(employees[0]).toBe(result);
         });
     });
 
     describe("getAllEmployees", () => {
         it("should handle successful operation", async () => {
-            const expected: employeeService.Employee[] = [{
+            const expected: Employee[] = [{
                 id: "1",
                 name: "Alice Johnson",
                 position: "Branch Manager",
@@ -31,14 +33,14 @@ describe("Employee Service", () => {
                 branchID: "1"
             }];
 
-            const result: employeeService.Employee[] = await employeeService.getAllEmployees();
+            const result: Employee[] = await employeeService.getAllEmployees();
             expect(expected).toStrictEqual(result);
         });
     });
 
     describe("getEmployee", () => {
         it("should handle successful operation", async () => {
-            const expected: employeeService.Employee = {
+            const expected: Employee = {
                 id: "1",
                 name: "Alice Johnson",
                 position: "Branch Manager",
@@ -48,14 +50,14 @@ describe("Employee Service", () => {
                 branchID: "1"
             };
 
-            const result: employeeService.Employee = await employeeService.getEmployee("1");
+            const result: Employee = await employeeService.getEmployee("1");
             expect(expected).toStrictEqual(result);
         });
     });
 
     describe("updateEmployee", () => {
         it("should handle successful operation", async () => {
-            const expected: employeeService.Employee = {
+            const expected: Employee = {
                 id: "1",
                 name: "Alice May",
                 position: "Branch Manager",
@@ -65,14 +67,14 @@ describe("Employee Service", () => {
                 branchID: "1"
             };
 
-            const result: employeeService.Employee = await employeeService.updateEmployee("1", {name: "Alice May", email: "alice.may@pixell-river.com"});
+            const result: Employee = await employeeService.updateEmployee("1", {name: "Alice May", email: "alice.may@pixell-river.com"});
             expect(expected).toStrictEqual(result);
         });
     });
 
     describe("deleteEmployee", () => {
         it("should handle successful operation", async () => {
-            const expected: employeeService.Employee[] = [];
+            const expected: Employee[] = [];
 
             await employeeService.deleteEmployee("1");
             expect(employees).toStrictEqual(expected);
@@ -81,7 +83,7 @@ describe("Employee Service", () => {
 
     describe("getBranchEmployees", () => {
         it("should handle successful operation", async () => {
-            const expected: employeeService.Employee[] = [
+            const expected: Employee[] = [
                 {
                     id: "1",
                     name: "Alice Johnson",
@@ -117,7 +119,7 @@ describe("Employee Service", () => {
 
     describe("getDepartmentEmployees", () => {
         it("should handle successful operation", async () => {
-            const expected: employeeService.Employee[] = [
+            const expected: Employee[] = [
                 { id: "3", name: "Maria Garcia", position: "Loan Officer", department: "Loans", email: "maria.garcia@pixell-river.com", phone: "204-555-0193", branchID: "3"},
                 { id: "5", name: "Chen Wei", position: "Senior Loan Officer", department: "Loans", email: "chen.wei@pixell-river.com", phone: "204-555-0218", branchID: "5"},
             ];

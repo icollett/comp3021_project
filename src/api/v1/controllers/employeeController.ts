@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import * as employeeService from "../services/employeeService";
-import type { Employee, BranchEmployees, DepartmentEmployees } from "../services/employeeService";
+import type { BranchEmployees, DepartmentEmployees } from "../services/employeeService";
+import { Employee } from "../models/employeeModel";
+
 
 /**
  * @description Get all Employees.

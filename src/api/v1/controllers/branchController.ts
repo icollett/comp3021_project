@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as branchService from "../services/branchService";
-import type { Branch } from "../services/branchService";
+import { Branch } from "../models/branchModel";
 
 /**
  * @description Get all Branches.

@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import * as branchController from "../src/api/v1/controllers/branchController";
 import * as branchService from "../src/api/v1/services/branchService";
+import { Branch } from "../src/api/v1/models/branchModel";
+
 
 jest.mock("../src/api/v1/services/branchService");
 
@@ -18,7 +20,7 @@ describe("Branch Controller", () => {
 
     describe("getAllBranches", () => {
         it("should handle successful operation", async () => {
-            const mockItems: branchService.Branch[] = [
+            const mockItems: Branch[] = [
                 {
                     id: "1",
                     name: "Vancouver Branch",
