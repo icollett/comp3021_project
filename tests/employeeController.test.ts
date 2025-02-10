@@ -79,7 +79,7 @@ describe("Employee Controller", () => {
       
             // Assert
             expect(mockNext).toHaveBeenCalledWith(mockError);
-          });
+        });
     });
 
     describe("getEmployee", () => {
@@ -129,6 +129,18 @@ describe("Employee Controller", () => {
                 message: "Employee Updated",
                 data: mockItems,
             });
+        });
+
+        it('should handle errors', async () => {
+            // Arrange
+            const mockError = new Error("Test Error");
+            (employeeService.updateEmployee as jest.Mock).mockRejectedValue(mockError);
+      
+            // Act
+            await employeeController.updateEmployee(mockReq as Request, mockRes as Response, mockNext);
+      
+            // Assert
+            expect(mockNext).toHaveBeenCalledWith(mockError);
         });
     });
 
