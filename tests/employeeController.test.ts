@@ -66,6 +66,20 @@ describe("Employee Controller", () => {
                 data: mockItems,
             });
         });
+
+        it('should handle errors', async () => {
+            // Arrange
+            const mockError = new Error("Validation error: Name is required");
+            (employeeService.createEmployee as jest.Mock).mockRejectedValue(mockError);
+            mockReq = { params: {}, body: {position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"} };
+
+      
+            // Act
+            await employeeController.createEmployee(mockReq as Request, mockRes as Response, mockNext);
+      
+            // Assert
+            expect(mockNext).toHaveBeenCalledWith(mockError);
+          });
     });
 
     describe("getEmployee", () => {
