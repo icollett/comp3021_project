@@ -69,6 +69,19 @@ describe("Branch Controller", () => {
                 data: mockItems,
             });
         });
+
+        it('should handle errors', async () => {
+            // Arrange
+            const mockError = new Error("Validation error: Name is required");
+            (branchService.createBranch as jest.Mock).mockRejectedValue(mockError);
+            mockReq = { params: {}, body: {address: "1300 Burrard St, Vancouver, BC, V6Z 2C7", phone: "604-456-0022",} };
+        
+            // Act
+            await branchController.createBranch(mockReq as Request, mockRes as Response, mockNext);
+        
+            // Assert
+            expect(mockNext).toHaveBeenCalledWith(mockError);
+        });
     });
 
     describe("getBranch", () => {
@@ -118,6 +131,18 @@ describe("Branch Controller", () => {
                 message: "Branch Updated",
                 data: mockItems,
             });
+        });
+
+        it('should handle errors', async () => {
+            // Arrange
+            const mockError = new Error("Test Error");
+            (branchService.updateBranch as jest.Mock).mockRejectedValue(mockError);
+        
+            // Act
+            await branchController.updateBranch(mockReq as Request, mockRes as Response, mockNext);
+        
+            // Assert
+            expect(mockNext).toHaveBeenCalledWith(mockError);
         });
     });
 
