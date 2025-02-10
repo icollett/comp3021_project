@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as employeeController from "../src/api/v1/controllers/employeeController";
 import * as employeeService from "../src/api/v1/services/employeeService";
 import { Employee } from "../src/api/v1/models/employeeModel";
+import { successResponse, errorResponse } from "../src/api/v1/models/responseModel";
 
 jest.mock("../src/api/v1/services/employeeService");
 
@@ -61,10 +62,9 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(201);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee Created",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(
+                {id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
+                "Employee created"));
         });
 
         it('should handle errors', async () => {
@@ -125,10 +125,9 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee Updated",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(
+                mockItems,
+                "Employee updated"));
         });
 
         it('should handle errors', async () => {

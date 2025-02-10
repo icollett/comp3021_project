@@ -10,4 +10,6 @@ export type Employee = {
     email: string,
     phone: string,
     branchID: string,
+    createdAt?: Date,
+    updatedAt?: Date,
 };

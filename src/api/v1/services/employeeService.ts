@@ -35,19 +35,12 @@ export const getAllEmployees = async (): Promise<Employee[]> => {
 
 /**
  * @description Create a new employee.
- * @param {{ name: string; position: string; department: string; email: string; phone: string; branchID: string; }} employee - The employee data.
+ * @param {Partial<Employee>} employee - The employee data.
  * @returns {Promise<Employee>}
  */
-export const createEmployee = async (employee: {
-    name: string;
-    position: string;
-    department: string;
-    email: string;
-    phone: string;
-    branchID: string;
-}): Promise<Employee> => {
+export const createEmployee = async (employee: Partial<Employee>): Promise<Employee> => {
     idCounter += 1;
-    const newEmployee: Employee = { id: (idCounter).toString(), ...employee };
+    const newEmployee: Employee = { id: (idCounter).toString(), ...employee } as Employee;
 
     // adding the new employee to the global scoped array of Items
     employees.push(newEmployee);
@@ -76,20 +69,13 @@ export const getEmployee = async (
 /**
  * @description Update an existing employee.
  * @param {string} id - The ID of the employee to update.
- * @param {{ name: string; position: string; department: string; email: string; phone: string; branchID: string; }} employee - The updated employee data.
+ * @param {Partial<Employee>} employee - The updated employee data.
  * @returns {Promise<Employee>}
  * @throws {Error} If the employee with the given ID is not found.
  */
 export const updateEmployee = async (
     id: string,
-    employee: {
-        name?: string;
-        position?: string;
-        department?: string;
-        email?: string;
-        phone?: string;
-        branchID?: string;
-    }
+    employee: Partial<Employee>
 ): Promise<Employee> => {
     if (id === ':id'){
         throw new Error('Employee ID not present.');
