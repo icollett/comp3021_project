@@ -91,6 +91,9 @@ export const updateEmployee = async (
         branchID?: string;
     }
 ): Promise<Employee> => {
+    if (id === ':id'){
+        throw new Error('Employee ID not present.');
+    }
     // retieve the employee's index from the employees array by comparing the employee ids
     const index: number = employees.findIndex((i) => i.id === id);
     // if the index is not found we expects a -1

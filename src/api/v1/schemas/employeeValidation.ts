@@ -29,6 +29,9 @@ export const employeeSchema: ObjectSchema = Joi.object({
 
 // https://stackoverflow.com/questions/43103400/is-it-possible-to-require-at-least-one-field-from-a-set-of-defined-fields
 export const employeeUpdateSchema: ObjectSchema = Joi.object({
+    id: Joi.string().required().messages({
+        "string.empty": "ID cannot be empty",
+    }),
     name: Joi.string().messages({
         "string.empty": "Name cannot be empty",
     }),
@@ -49,4 +52,6 @@ export const employeeUpdateSchema: ObjectSchema = Joi.object({
     }),
     createdAt: Joi.date(),
     updatedAt: Joi.date(),
-}).min(1);
+}).min(2).messages({
+    "object.min": "Body attributes are required.",
+});
