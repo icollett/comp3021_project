@@ -29,8 +29,6 @@ export const employeeSchema: ObjectSchema = Joi.object({
         "sting.empty": "Phone number can not be empty.",
         "object.regex": "Invalid phone number format."
     }),
-    createdAt: Joi.date(),
-    updatedAt: Joi.date(),
 });
 
 // https://stackoverflow.com/questions/43103400/is-it-possible-to-require-at-least-one-field-from-a-set-of-defined-fields
@@ -60,8 +58,6 @@ export const employeeUpdateSchema: ObjectSchema = Joi.object({
         "sting.empty": "Phone number can not be empty.",
         "object.regex": "Invalid phone number format."
     }),
-    createdAt: Joi.date(),
-    updatedAt: Joi.date(),
 }).min(2).messages({
     "object.min": "Body attributes are required.",
 });
