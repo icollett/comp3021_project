@@ -13,16 +13,12 @@ export const getAllBranches = async (): Promise<Branch[]> => {
 
 /**
  * @description Create a new branch.
- * @param {{ name: string; address: string; phone: string; }} branch - The branch data.
+ * @param {Partial<Branch>} branch - The branch data.
  * @returns {Promise<Branch>}
  */
-export const createBranch = async (branch: {
-    name: string,
-    address: string,
-    phone: string,
-}): Promise<Branch> => {
+export const createBranch = async (branch: Partial<Branch>): Promise<Branch> => {
     idCounter += 1;
-    const newBranch: Branch = { id: (idCounter).toString(), ...branch };
+    const newBranch: Branch = { id: (idCounter).toString(), ...branch } as Branch;
 
     // adding the new branch to the global scoped array of Items
     branches.push(newBranch);

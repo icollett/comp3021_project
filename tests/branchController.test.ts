@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as branchController from "../src/api/v1/controllers/branchController";
 import * as branchService from "../src/api/v1/services/branchService";
 import { Branch } from "../src/api/v1/models/branchModel";
+import { successResponse, errorResponse } from "../src/api/v1/models/responseModel";
 
 
 jest.mock("../src/api/v1/services/branchService");
@@ -38,10 +39,7 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branches Retrieved",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branches Retrieved"));
         });
     });
 
@@ -64,10 +62,7 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(201);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Created",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branch Created"));
         });
 
         it('should handle errors', async () => {
@@ -103,10 +98,7 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Found",
-                data: mockItems
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branch Found"));
         });
     });
 
@@ -127,10 +119,7 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Updated",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branch Updated"));
         });
 
         it('should handle errors', async () => {
@@ -165,9 +154,7 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Deleted",
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse({message: "Branch Deleted"}));
         });
     });
 });

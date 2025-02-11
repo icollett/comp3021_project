@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as branchService from "../services/branchService";
+import { successResponse, errorResponse } from "../models/responseModel";
 import { Branch } from "../models/branchModel";
 
 /**
@@ -15,7 +16,7 @@ export const getAllBranches = async (
     try {
         const branches: Branch[] = await branchService.getAllBranches();
 
-        res.status(200).json({ message: "Branches Retrieved", data: branches });
+        res.status(200).json(successResponse(branches, "Branches Retrieved"));
     } catch (error) {
         next(error);
     }
@@ -35,7 +36,7 @@ export const createBranch = async (
         // call the branchService by passing the body of the request
         const newBranch: Branch = await branchService.createBranch(req.body);
 
-        res.status(201).json({ message: "Branch Created", data: newBranch });
+        res.status(201).json(successResponse(newBranch, "Branch Created"));
     } catch (error) {
         next(error);
     }
@@ -57,7 +58,7 @@ export const getBranch = async (
             req.params.id
         );
 
-        res.status(200).json({ message: "Branch Found", data: foundBranch });
+        res.status(200).json(successResponse(foundBranch, "Branch Found"));
     } catch (error) {
         next(error);
     }
@@ -80,7 +81,7 @@ export const updateBranch = async (
             req.body
         );
 
-        res.status(200).json({ message: "Branch Updated", data: updatedBranch });
+        res.status(200).json(successResponse(updatedBranch, "Branch Updated"));
     } catch (error) {
         next(error);
     }
@@ -99,7 +100,7 @@ export const deleteBranch = async (
     try {
         await branchService.deleteBranch(req.params.id);
 
-        res.status(200).json({ message: "Branch Deleted" });
+        res.status(200).json(successResponse({message: "Branch Deleted"}));
     } catch (error) {
         next(error);
     }
