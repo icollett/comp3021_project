@@ -1,5 +1,3 @@
-const Joi = require('joi');
-
 import { Request, Response, NextFunction } from "express";
 import { errorResponse } from "../models/responseModel";
 
@@ -18,6 +16,46 @@ import { errorResponse } from "../models/responseModel";
 interface ExtendedError extends Error {
     code?: string;
     statusCode?: number;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#custom_error_types
+export class ValidationError extends Error {
+    public type: string;
+    public code?: string;
+    public statusCode?: number;
+
+    constructor(message: string, code?: string, statuscode?: number){
+        super(message);
+        this.type = "Validation Error"
+        this.code = code ?? "422";
+        this.statusCode = statuscode ?? 422;
+    }
+}
+
+export class ServiceError extends Error {
+    public type: string;
+    public code?: string;
+    public statusCode?: number;
+
+    constructor(message: string, code?: string, statuscode?: number){
+        super(message);
+        this.type = "Service Error"
+        this.code = code ?? "420";
+        this.statusCode = statuscode ?? 420;
+    }
+}
+
+export class RepositoryError extends Error {
+    public type: string;
+    public code?: string;
+    public statusCode?: number;
+
+    constructor(message: string, code?: string, statuscode?: number){
+        super(message);
+        this.type = "Repository Error"
+        this.code = code ?? "442";
+        this.statusCode = statuscode ?? 442;
+    }
 }
 
 /**
@@ -59,7 +97,7 @@ const errorHandler = (
 
     // Use a default error code if none provided
     // This helps with client-side error handling consistency
-    const code: string = err.code || "UNKNOWN_ERROR";
+    const code: string = err.code ?? "UNKNOWN_ERROR";
 
     // Log the full error details for debugging
     console.error(`Error: ${err.message} (Code: ${code})`);
@@ -67,8 +105,8 @@ const errorHandler = (
     // Send a sanitized error response to the client
     // We don't send the actual error message to avoid exposing sensitive details
     // Handle specific types of errors
-	if (err instanceof Joi.ValidationError) {
-		res.status(400).json(errorResponse(err.message, err.code));
+	if (err instanceof ValidationError) {
+		res.json(errorResponse(err.message, err.code));
 	} else {
 		// Generic error response for unhandled errors
 		res.status(500).json(errorResponse("An unexpected error occurred"));

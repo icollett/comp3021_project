@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
 
 import { MiddlewareFunction, RequestData } from "../types/expressTypes";
+import { ValidationError } from "./errorHandler"
 
 /**
  * Validates data against a Joi schema and throws an error if validation fails.
@@ -29,7 +30,7 @@ const validate = <T>(schema: ObjectSchema<T>, data: T): void => {
 
     if (error) {
         // Map through all validation errors and join them into a single string
-        throw new Error(
+        throw new ValidationError(
             `Validation error: ${error.details
                 .map((x) => x.message)
                 .join(", ")}`
