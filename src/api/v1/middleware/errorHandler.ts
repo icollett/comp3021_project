@@ -1,3 +1,5 @@
+const Joi = require('joi');
+
 import { Request, Response, NextFunction } from "express";
 import { errorResponse } from "../models/responseModel";
 
@@ -54,8 +56,6 @@ const errorHandler = (
     res: Response,
     _next: NextFunction // Underscore prefix indicates this parameter is required but unused
 ): void => {
-    // Set default status code to 500 (Internal Server Error) if not specified
-    const statusCode: number = err.statusCode || 500;
 
     // Use a default error code if none provided
     // This helps with client-side error handling consistency
@@ -66,9 +66,13 @@ const errorHandler = (
 
     // Send a sanitized error response to the client
     // We don't send the actual error message to avoid exposing sensitive details
-    res.status(statusCode).json(
-        errorResponse("An unexpected error occurred. Please try again.", code)
-    );
+    // Handle specific types of errors
+	if (err instanceof Joi.ValidationError) {
+		res.status(400).json(errorResponse(err.message, err.code));
+	} else {
+		// Generic error response for unhandled errors
+		res.status(500).json(errorResponse("An unexpected error occurred"));
+	}
 };
 
 export default errorHandler;
