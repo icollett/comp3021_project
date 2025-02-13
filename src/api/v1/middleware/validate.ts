@@ -24,7 +24,7 @@ import { ValidationError } from "./errorHandler";
  *   // Will throw with validation error message
  * }
  */
-const validate = <T>(schema: ObjectSchema<T>, data: T): void => {
+export const validate = <T>(schema: ObjectSchema<T>, data: T): void => {
     // abortEarly: false ensures all validation errors are collected, not just the first one
     const { error } = schema.validate(data, { abortEarly: false });
 
