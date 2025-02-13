@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import * as employeeService from "../services/employeeService";
-import type { BranchEmployees, DepartmentEmployees } from "../services/employeeService";
 
 import { successResponse, errorResponse } from "../models/responseModel";
 import { Employee } from "../models/employeeModel";
@@ -129,7 +128,7 @@ export const getBranchEmployees = async (
 ): Promise<void> => {
     try {
         // call the employeeService by passing the id from the url path
-        const branchEmployees: BranchEmployees = await employeeService.getBranchEmployees(
+        const branchEmployees: Employee[] = await employeeService.getBranchEmployees(
             req.params.id
         );
 
@@ -151,7 +150,7 @@ export const getDepartmentEmployees = async (
 ): Promise<void> => {
     try {
         // call the employeeService by passing the department from the url path
-        const departmentEmployees: DepartmentEmployees = await employeeService.getDepartmentEmployees(
+        const departmentEmployees: Employee[] = await employeeService.getDepartmentEmployees(
             req.params.department
         );
 

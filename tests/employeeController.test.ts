@@ -33,10 +33,9 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employees Retrieved",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(
+                mockItems,
+                "Employees Retrieved"));
         });
     });
 
@@ -104,10 +103,7 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee Found",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Employee Found"));
         });
     });
 
@@ -165,9 +161,7 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee Deleted",
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse({message: "Employee Deleted"}));
         });
     });
 
@@ -190,10 +184,7 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Staff Found",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branch Staff Found"));
         });
     });
 
@@ -217,10 +208,7 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Department Staff Found",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Department Staff Found"));
         });
     });
 });
