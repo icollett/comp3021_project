@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as employeeService from "../services/employeeService";
 
-import { successResponse, errorResponse } from "../models/responseModel";
+import { successResponse } from "../models/responseModel";
 import { Employee } from "../models/employeeModel";
 
 

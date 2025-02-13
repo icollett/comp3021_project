@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import * as branchService from "../services/branchService";
-import { successResponse, errorResponse } from "../models/responseModel";
+import { successResponse } from "../models/responseModel";
 import { Branch } from "../models/branchModel";
 
 /**

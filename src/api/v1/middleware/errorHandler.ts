@@ -108,7 +108,7 @@ const errorHandler = (
 	if (err instanceof ValidationError || 
         err instanceof ServiceError || 
         err instanceof RepositoryError) {
-		res.json(errorResponse(err.message, err.code));
+		res.status(err.statusCode as number).json(errorResponse(err.message, err.code));
 	} else {
 		// Generic error response for unhandled errors
 		res.status(500).json(errorResponse("An unexpected error occurred"));

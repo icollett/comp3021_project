@@ -30,10 +30,10 @@ export const createEmployee = async (employee: Partial<Employee>): Promise<Emplo
     try{
         validate(employeeSchema, employee);
     }catch(error){
-        throw new ServiceError(`Failed to validate employee creation: ${employee}.`);
+        throw new ServiceError(`Failed to validate employee creation.`);
     }
     const id: string = await firestoreRepository.createDocument(COLLECTION, employee);
-    return { id, ...employee } as Employee;
+    return { id: id, ...employee} as Employee;
 };
 
 /**
@@ -54,7 +54,7 @@ export const getEmployee = async (
         throw new ServiceError(`Employee with ID ${id} not found`);
     }
 
-    return { id, ...snapshot.data() } as Employee;
+    return { id: id, ...snapshot.data() } as Employee;
 };
 
 /**
@@ -69,12 +69,12 @@ export const updateEmployee = async (
     employee: Partial<Employee>
 ): Promise<Employee> => {
     try{
-        validate(employeeUpdateSchema, employee);
+        validate(employeeUpdateSchema, {id, ...employee});
     }catch(error){
-        throw new ServiceError(`Failed to validate employee update: ${employee}.`);
+        throw new ServiceError(`Failed to validate employee update.`);
     }
     await firestoreRepository.updateDocument(COLLECTION, id, employee);
-    return { id, ...employee } as Employee;
+    return { id: id, ...employee } as Employee;
 };
 
 /**

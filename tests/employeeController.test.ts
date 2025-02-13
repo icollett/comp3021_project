@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import * as employeeController from "../src/api/v1/controllers/employeeController";
 import * as employeeService from "../src/api/v1/services/employeeService";
 import { Employee } from "../src/api/v1/models/employeeModel";
-import { successResponse, errorResponse } from "../src/api/v1/models/responseModel";
+import { successResponse } from "../src/api/v1/models/responseModel";
 
 jest.mock("../src/api/v1/services/employeeService");
 
