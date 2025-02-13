@@ -118,9 +118,16 @@ export const updateDocument = async <T>(
 	collectionName: string,
 	id: string,
 	data: Partial<T>
-): Promise<void> => {
+): Promise<FirebaseFirestore.DocumentSnapshot> => {
 	try {
 		await db.collection(collectionName).doc(id).update(data);
+
+        const doc: FirebaseFirestore.DocumentSnapshot = await db
+			.collection(collectionName)
+			.doc(id)
+			.get();
+        
+        return doc;
 	} catch (error) {
 		console.error(
 			`Failed to update document ${id} in ${collectionName}:`,
