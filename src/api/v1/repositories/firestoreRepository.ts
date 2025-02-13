@@ -118,16 +118,9 @@ export const updateDocument = async <T>(
 	collectionName: string,
 	id: string,
 	data: Partial<T>
-): Promise<FirebaseFirestore.DocumentSnapshot> => {
+): Promise<void> => {
 	try {
 		await db.collection(collectionName).doc(id).update(data);
-
-        const doc: FirebaseFirestore.DocumentSnapshot = await db
-			.collection(collectionName)
-			.doc(id)
-			.get();
-        
-        return doc;
 	} catch (error) {
 		console.error(
 			`Failed to update document ${id} in ${collectionName}:`,
@@ -174,7 +167,7 @@ export const deleteDocument = async (
  * @param {string} collectionName - The name of the collection to find documents in.
  * @param {string} fieldName - The name of the document field to examine the value of.
  * @param {string} fieldValue - The value to check a document field for.
- * @returns {Promise<FirebaseFirestore.QuerySnapshot>}
+ * @returns {Promise<FirebaseFirestore.QuerySnapshot>} - A list of documents that match the search criteria.
  */
 export const fetchDocsByField = async (
 	collectionName: string,
