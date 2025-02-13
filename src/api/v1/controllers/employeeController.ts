@@ -35,10 +35,7 @@ export const createEmployee = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const dateCreated: Date = new Date();
-        const dateUpdated: Date = dateCreated;
-
-        const employee: Partial<Employee> = {...req.body, dateCreated, dateUpdated};
+        const employee: Partial<Employee> = {...req.body};
 
         // call the employeeService by passing the body of the request
         const newEmployee: Employee = await employeeService.createEmployee(employee);

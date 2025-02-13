@@ -89,7 +89,7 @@ export class RepositoryError extends Error {
  * });
  */
 const errorHandler = (
-    err: ExtendedError,
+    err: ExtendedError | ValidationError | ServiceError | RepositoryError,
     req: Request,
     res: Response,
     _next: NextFunction // Underscore prefix indicates this parameter is required but unused
@@ -105,7 +105,9 @@ const errorHandler = (
     // Send a sanitized error response to the client
     // We don't send the actual error message to avoid exposing sensitive details
     // Handle specific types of errors
-	if (err instanceof ValidationError) {
+	if (err instanceof ValidationError || 
+        err instanceof ServiceError || 
+        err instanceof RepositoryError) {
 		res.json(errorResponse(err.message, err.code));
 	} else {
 		// Generic error response for unhandled errors
