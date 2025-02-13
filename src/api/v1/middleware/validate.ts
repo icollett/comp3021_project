@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ObjectSchema } from "joi";
 
 import { MiddlewareFunction, RequestData } from "../types/expressTypes";
-import { ValidationError } from "./errorHandler"
+import { ValidationError } from "./errorHandler";
 
 /**
  * Validates data against a Joi schema and throws an error if validation fails.
