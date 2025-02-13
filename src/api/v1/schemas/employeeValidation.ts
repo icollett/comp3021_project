@@ -14,19 +14,19 @@ export const employeeSchema: ObjectSchema = Joi.object({
     }),
     email: Joi.string().required().regex(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).messages({
         "any.required": "Email is required",
-        "sting.empty": "Email cannot be empty.",
+        "string.empty": "Email cannot be empty.",
         "string.pattern.base": "Invalid email format."
     }),
     branchID: Joi.string().required().alphanum().messages({
         "any.required": "BranchID is required",
-        "sting.empty": "BranchhID cannot be empty.",
+        "string.empty": "BranchhID cannot be empty.",
     }),
     department: Joi.string().optional().messages({
-        "sting.empty": "Department cannot be empty.",
+        "string.empty": "Department cannot be empty.",
     }),
     //https://regex101.com/r/wZ4uU6/2
     phone: Joi.string().optional().regex(/(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/i).messages({
-        "sting.empty": "Phone number can not be empty.",
+        "string.empty": "Phone number can not be empty.",
         "string.pattern.base": "Invalid phone number format."
     }),
 });
@@ -45,17 +45,17 @@ export const employeeUpdateSchema: ObjectSchema = Joi.object({
         "string.pattern.base": "Invalid position title format."
     }),
     email: Joi.string().regex(/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).messages({
-        "sting.empty": "Email cannot be empty.",
+        "string.empty": "Email cannot be empty.",
         "string.pattern.base": "Invalid email format."
     }),
     branchID: Joi.string().alphanum().messages({
-        "sting.empty": "BranchhID cannot be empty.",
+        "string.empty": "BranchhID cannot be empty.",
     }),
     department: Joi.string().messages({
-        "sting.empty": "Department cannot be empty.",
+        "string.empty": "Department cannot be empty.",
     }),
     phone: Joi.string().regex(/(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/i).messages({
-        "sting.empty": "Phone number can not be empty.",
+        "string.empty": "Phone number can not be empty.",
         "string.pattern.base": "Invalid phone number format."
     }),
 }).min(2).messages({
