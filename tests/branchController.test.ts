@@ -1,9 +1,16 @@
+jest.mock("../src/api/v1/services/branchService", () => ({
+    getAllBranches: jest.fn(),
+    createBranch: jest.fn(),
+    getBranch: jest.fn(),
+    updateBranch: jest.fn(),
+    deleteBranch: jest.fn(),
+}));
+
 import { Request, Response, NextFunction } from "express";
 import * as branchController from "../src/api/v1/controllers/branchController";
 import * as branchService from "../src/api/v1/services/branchService";
 import { Branch } from "../src/api/v1/models/branchModel";
-import { successResponse, errorResponse } from "../src/api/v1/models/responseModel";
-
+import { successResponse } from "../src/api/v1/models/responseModel";
 
 jest.mock("../src/api/v1/services/branchService");
 
