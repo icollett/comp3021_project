@@ -1,13 +1,3 @@
-jest.mock("../src/api/v1/controllers/employeeController", () => ({
-	getAllEmployees: jest.fn((req, res) => res.status(200).send()),
-	createEmployee: jest.fn((req, res) => res.status(201).send()),
-    getEmployee: jest.fn((req, res) => res.status(200).send()),
-	updateEmployee: jest.fn((req, res) => res.status(200).send()),
-	deleteEmployee: jest.fn((req, res) => res.status(200).send()),
-    getBranchEmployees: jest.fn((req, res) => res.status(200).send()),
-    getDepartmentEmployees: jest.fn((req, res) => res.status(200).send()),
-}));
-
 import request from "supertest";
 import app from "../src/app";
 import {
@@ -20,7 +10,17 @@ import {
     getDepartmentEmployees,
 } from "../src/api/v1/controllers/employeeController";
 
-describe("Employee API Endpoints", () => {
+jest.mock("../src/api/v1/controllers/employeeController", () => ({
+	getAllEmployees: jest.fn((req, res) => res.status(200).send()),
+	createEmployee: jest.fn((req, res) => res.status(201).send()),
+    getEmployee: jest.fn((req, res) => res.status(200).send()),
+	updateEmployee: jest.fn((req, res) => res.status(200).send()),
+	deleteEmployee: jest.fn((req, res) => res.status(200).send()),
+    getBranchEmployees: jest.fn((req, res) => res.status(200).send()),
+    getDepartmentEmployees: jest.fn((req, res) => res.status(200).send()),
+}));
+
+describe("Employee route endpoints", () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
