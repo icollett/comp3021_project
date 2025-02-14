@@ -1,9 +1,8 @@
 import * as repositoryModule from "../src/api/v1/repositories/firestoreRepository";
 import * as branchService from "../src/api/v1/services/branchService";
 import { Branch } from "../src/api/v1/models/branchModel";
-import { RepositoryError, ServiceError, ValidationError } from "../src/api/v1/middleware/errorHandler";
+import { RepositoryError, ServiceError } from "../src/api/v1/middleware/errorHandler";
 import {MockFirestoreData, MockFirestoreDocumentSnapshot, MockQuerySnapshot} from "./utils/mockFirebaseHelper"
-import { branchSchema } from "../src/api/v1/schemas/branchValidation";
 
 // Mock the repository module
 jest.mock("../src/api/v1/repositories/firestoreRepository");
