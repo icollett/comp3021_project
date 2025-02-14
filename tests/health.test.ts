@@ -20,6 +20,14 @@ jest.mock("../src/api/v1/routes/employeeRoutes", () => {
     };
 });
 
+jest.mock("../config/firebase", () => ({
+    default: {
+        collection: jest.fn(),
+        runTransaction: jest.fn(),
+        batch: jest.fn()
+    }
+}));
+
 import request, {Response} from "supertest";
 
 import app from "../src/app";

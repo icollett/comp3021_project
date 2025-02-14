@@ -1,7 +1,3 @@
-import request from "supertest";
-import app from "../src/app";
-import * as branchController from "../src/api/v1/controllers/branchController";
-
 jest.mock("../src/api/v1/controllers/branchController", () => ({
 	getAllBranches: jest.fn((req, res) => res.status(200).send()),
 	createBranch: jest.fn((req, res) => res.status(201).send()),
@@ -9,6 +5,18 @@ jest.mock("../src/api/v1/controllers/branchController", () => ({
 	updateBranch: jest.fn((req, res) => res.status(200).send()),
 	deleteBranch: jest.fn((req, res) => res.status(200).send()),
 }));
+
+jest.mock("../config/firebase", () => ({
+    default: {
+        collection: jest.fn(),
+        runTransaction: jest.fn(),
+        batch: jest.fn()
+    }
+}));
+
+import request from "supertest";
+import app from "../src/app";
+import * as branchController from "../src/api/v1/controllers/branchController";
 
 describe("Branch API Endpoints", () => {
     afterEach(() => {
