@@ -17,7 +17,7 @@ describe("Branch API Endpoints", () => {
         expect(branchController.createBranch).toHaveBeenCalled();
     });
 
-    it("should call getAllBranchs controller", async () => {
+    it("should call getAllBranches controller", async () => {
         await request(app).get("/api/v1/branches");
         expect(branchController.getAllBranches).toHaveBeenCalled();
     });

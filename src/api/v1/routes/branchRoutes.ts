@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import * as branchController from "../controllers/branchController";
 
 import { validateRequest } from "../middleware/validate";
-import { branchSchema } from "../schemas/branchValidation";
+import { branchSchema, branchUpdateSchema } from "../schemas/branchValidation";
 
 // express Router instance created. This instance will group all the branch-related routes.
 const router: Router = express.Router();
@@ -159,7 +159,7 @@ router.get("/:id", branchController.getBranch);
  *                 phone:
  *                   type: string
  */
-router.put("/:id", validateRequest(branchSchema), branchController.updateBranch);
+router.put("/:id", validateRequest(branchUpdateSchema), branchController.updateBranch);
 
 /**
  * @route DELETE /:id

@@ -14,7 +14,7 @@ const app: Express = express();
 // setup swagger for api documentation
 setupSwagger(app);
 
-app.use(accessLogger);
+//app.use(accessLogger);
 app.use(express.json());
 
 /**

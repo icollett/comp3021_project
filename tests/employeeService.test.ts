@@ -1,3 +1,13 @@
+jest.mock("../src/api/v1/repositories/firestoreRepository", () => ({
+    createDocument: jest.fn(),
+    getDocuments: jest.fn(),
+    getDocumentById: jest.fn(),
+    updateDocument: jest.fn(),
+    deleteDocument: jest.fn(),
+    fetchDocsByField: jest.fn(),
+    runTransaction: jest.fn(),
+}));
+
 import * as repositoryModule from "../src/api/v1/repositories/firestoreRepository";
 import * as employeeService from "../src/api/v1/services/employeeService";
 import { Employee } from "../src/api/v1/models/employeeModel";

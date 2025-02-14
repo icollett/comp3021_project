@@ -1,3 +1,13 @@
+jest.mock("../src/api/v1/services/employeeService", () => ({
+    getAllEmployees: jest.fn(),
+    createEmployee: jest.fn(),
+    getEmployee: jest.fn(),
+    updateEmployee: jest.fn(),
+    deleteEmployee: jest.fn(),
+    getBranchEmployees: jest.fn(),
+    getDepartmentEmployees: jest.fn(),
+}));
+
 import { Request, Response, NextFunction } from "express";
 import * as employeeController from "../src/api/v1/controllers/employeeController";
 import * as employeeService from "../src/api/v1/services/employeeService";

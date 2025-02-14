@@ -1,29 +1,7 @@
 import db from "../../../../config/firebase";
-import { FieldValue, Timestamp } from "firebase-admin/firestore";
 
 import { RepositoryError } from "../middleware/errorHandler";
 
-
-/**
- * Defines the allowed data types that can be stored in Firestore.
- * These types are restricted to ensure type safety when working with Firestore documents.
- */
-type FirestoreDataTypes =
-    | string
-    | number
-    | boolean
-    | null
-    | Timestamp
-    | FieldValue;
-
-/**
- * Represents a field-value pair used for querying documents.
- * Used primarily in filtering operations when deleting multiple documents.
- */
-interface FieldValuePair {
-    fieldName: string;
-    fieldValue: FirestoreDataTypes;
-}
 
 /**
  * Executes a series of operations within a Firestore transaction.
@@ -52,9 +30,7 @@ export const createDocument = async <T>(
 	data: Partial<T>,
 ): Promise<string> => {
 	try {
-		let docRef: FirebaseFirestore.DocumentReference;
-
-		docRef = await db.collection(collectionName).add(data);
+		const docRef: FirebaseFirestore.DocumentReference = await db.collection(collectionName).add(data);
 
 		return docRef.id;
 	} catch (error) {
