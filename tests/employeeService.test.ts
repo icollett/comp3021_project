@@ -1,7 +1,6 @@
 import * as repositoryModule from "../src/api/v1/repositories/firestoreRepository";
 import * as employeeService from "../src/api/v1/services/employeeService";
 import { Employee } from "../src/api/v1/models/employeeModel";
-import { mock } from "node:test";
 import { RepositoryError, ServiceError, ValidationError } from "../src/api/v1/middleware/errorHandler";
 import {MockFirestoreData, MockFirestoreDocumentSnapshot, MockQuerySnapshot} from "./utils/mockFirebaseHelper"
 
@@ -410,17 +409,4 @@ describe("Employee Service", () => {
         });
     });
 
-    // describe("getDepartmentEmployees", () => {
-    //     it("should handle successful operation", async () => {
-    //         const expected: Employee[] = [
-    //             { id: "3", name: "Maria Garcia", position: "Loan Officer", department: "Loans", email: "maria.garcia@pixell-river.com", phone: "204-555-0193", branchID: "3"},
-    //             { id: "5", name: "Chen Wei", position: "Senior Loan Officer", department: "Loans", email: "chen.wei@pixell-river.com", phone: "204-555-0218", branchID: "5"},
-    //         ];
-
-    //         await employeeService.createEmployee({name: "Chen Wei", position: "Senior Loan Officer", department: "Loans", email: "chen.wei@pixell-river.com", phone: "204-555-0218", branchID: "5"});
-            
-    //         const result: employeeService.DepartmentEmployees = await employeeService.getDepartmentEmployees("Loans");
-    //         expect(expected).toStrictEqual(result.staff);
-    //     });
-    // });
 });

@@ -71,7 +71,7 @@ export const updateBranch = async (
     try{
         validate(branchUpdateSchema, {id, ...branch});
     }catch(error){
-        throw new ServiceError(`Failed to validate employee update.`);
+        throw new ServiceError(`Failed to validate branch update.`);
     }
     await firestoreRepository.updateDocument(COLLECTION, id, branch);
     return { id, ...branch } as Branch;
