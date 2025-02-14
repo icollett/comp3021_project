@@ -22,7 +22,7 @@ jest.mock("../src/api/v1/routes/employeeRoutes", () => {
 
 import request, {Response} from "supertest";
 
-import {app, server} from "../src/app";
+import app from "../src/app";
 
 describe("GET /health", () => {
     it("should return 200 OK", async () => {
@@ -34,7 +34,3 @@ describe("GET /health", () => {
 		expect(response.body).toHaveProperty("version");
     });
 });
-
-afterAll(async () => {
-    await server.close();
-  });

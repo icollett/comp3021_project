@@ -1,9 +1,9 @@
 {
-  "name": "comp-3018_a2",
+  "name": "comp-3018_a3",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/app.ts",
+    "start": "ts-node src/server.ts",
     "build": "tsc",
     "test": "jest --detectOpenHandles",
     "test:watch": "jest --watch"

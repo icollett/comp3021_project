@@ -9,7 +9,7 @@ jest.mock("../src/api/v1/controllers/employeeController", () => ({
 }));
 
 import request from "supertest";
-import {app, server} from "../src/app";
+import app from "../src/app";
 import {
     getAllEmployees,
     createEmployee,
@@ -21,6 +21,10 @@ import {
 } from "../src/api/v1/controllers/employeeController";
 
 describe("Employee API Endpoints", () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
 	it("should call createEmployee controller", async () => {
         const mockItem = {name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"};
         await request(app).post("/api/v1/employees").send(mockItem);
@@ -57,8 +61,4 @@ describe("Employee API Endpoints", () => {
         await request(app).get("/api/v1/employees/department/Loans");
         expect(getDepartmentEmployees).toHaveBeenCalled();
     });
-});
-
-afterAll(async () => {
-    await server.close();
 });

@@ -1,5 +1,5 @@
 import request from "supertest";
-import {app, server} from "../src/app";
+import app from "../src/app";
 import * as branchController from "../src/api/v1/controllers/branchController";
 
 jest.mock("../src/api/v1/controllers/branchController", () => ({
@@ -11,6 +11,10 @@ jest.mock("../src/api/v1/controllers/branchController", () => ({
 }));
 
 describe("Branch API Endpoints", () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
     it("should call createBranch controller", async () => {
         const mockItem = {name: "Vancouver Branch", address: "1300 Burrard St, Vancouver, BC, V6Z 2C7", phone: "604-456-0022",};
         await request(app).post("/api/v1/branches").send(mockItem);
@@ -40,8 +44,4 @@ describe("Branch API Endpoints", () => {
         await request(app).delete("/api/v1/branches/1");
         expect(branchController.deleteBranch).toHaveBeenCalled();
     });
-});
-
-afterAll(async () => {
-    await server.close();
 });
