@@ -103,7 +103,7 @@ export const getDocumentById = async (
 			`Failed to fetch document ${id} from ${collectionName}:`,
 			error
 		);
-		throw new RepositoryError("Unable to fetch specified document failed.");
+		throw new RepositoryError("Unable to fetch specified document.");
 	}
 };
 

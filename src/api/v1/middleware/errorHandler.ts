@@ -95,15 +95,9 @@ const errorHandler = (
     _next: NextFunction // Underscore prefix indicates this parameter is required but unused
 ): void => {
 
-    // Use a default error code if none provided
-    // This helps with client-side error handling consistency
-    const code: string = err.code ?? "UNKNOWN_ERROR";
-
     // Log the full error details for debugging
-    console.error(`Error: ${err.message} (Code: ${code})`);
+    console.error(`Error: ${err.message} (Code: ${err.code})`);
 
-    // Send a sanitized error response to the client
-    // We don't send the actual error message to avoid exposing sensitive details
     // Handle specific types of errors
 	if (err instanceof ValidationError || 
         err instanceof ServiceError || 

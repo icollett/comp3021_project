@@ -1,12 +1,12 @@
 import { Server } from "http";
 import express, { Express } from "express";
-import morgan from "morgan";
 
 // import setupSwagger endpoint
 import setupSwagger from "../config/swagger";
 import employeeRoutes from "./api/v1/routes/employeeRoutes";
 import branchRoutes from "./api/v1/routes/branchRoutes";
 import errorHandler from "./api/v1/middleware/errorHandler";
+import { accessLogger } from "./api/v1/middleware/logger";
 
 // initialize the express application
 const app: Express = express();
@@ -14,7 +14,7 @@ const app: Express = express();
 // setup swagger for api documentation
 setupSwagger(app);
 
-app.use(morgan("combined"));
+app.use(accessLogger);
 app.use(express.json());
 
 /**
