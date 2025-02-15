@@ -2,7 +2,7 @@ import { Branch } from "../models/branchModel";
 import * as firestoreRepository from "../repositories/firestoreRepository";
 import { branchSchema, branchUpdateSchema } from "../schemas/branchValidation";
 import { validate } from "../middleware/validate";
-import { ServiceError } from "../middleware/errorHandler";
+import { RepositoryError, ServiceError, ValidationError } from "../middleware/errorHandler";
 
 const COLLECTION: string = 'Branches';
 
@@ -70,10 +70,16 @@ export const updateBranch = async (
 ): Promise<Branch> => {
     try{
         validate(branchUpdateSchema, {id, ...branch});
+        await firestoreRepository.updateDocument(COLLECTION, id, branch);
     }catch(error){
-        throw new ServiceError(`Failed to validate branch update.`);
+        if(error instanceof ValidationError)
+            throw new ValidationError(error.message);
+        else if(error instanceof RepositoryError){
+            throw new RepositoryError(error.message);
+        } else {
+            throw new ServiceError("Failed to update branch.");
+        }
     }
-    await firestoreRepository.updateDocument(COLLECTION, id, branch);
     return { id, ...branch } as Branch;
 };
 

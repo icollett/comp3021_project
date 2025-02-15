@@ -69,7 +69,7 @@ export const updateEmployee = async (
     employee: Partial<Employee>
 ): Promise<Employee> => {
     try{
-        validate(employeeUpdateSchema, {id, ...employee});
+        validate(employeeUpdateSchema, employee);
     }catch(error){
         throw new ServiceError(`Failed to validate employee update.`);
     }

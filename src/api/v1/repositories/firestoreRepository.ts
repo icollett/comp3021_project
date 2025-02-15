@@ -102,7 +102,7 @@ export const updateDocument = async <T>(
 			`Failed to update document ${id} in ${collectionName}:`,
 			error
 		);
-		throw new RepositoryError("Document update failed.");
+		throw new RepositoryError(`Failed to update document ${id} in ${collectionName}`);
 	}
 };
 
@@ -133,7 +133,7 @@ export const deleteDocument = async (
 			`Failed to delete document ${id} from ${collectionName}:`,
 			error
 		);
-		throw new RepositoryError("Document deletion failed.");
+		throw new RepositoryError(`Failed to delete document ${id} from ${collectionName}`);
 	}
 };
 

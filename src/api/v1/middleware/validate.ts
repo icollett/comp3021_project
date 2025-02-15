@@ -29,12 +29,14 @@ export const validate = <T>(schema: ObjectSchema<T>, data: T): void => {
     const { error } = schema.validate(data, { abortEarly: false });
 
     if (error) {
-        // Map through all validation errors and join them into a single string
-        throw new ValidationError(
+        const err = new ValidationError(
             `Validation error: ${error.details
                 .map((x) => x.message)
                 .join(", ")}`
         );
+        console.log(err.message);
+        // Map through all validation errors and join them into a single string
+        throw err;
     }
 };
 
