@@ -2,7 +2,7 @@ import { Employee } from "../models/employeeModel";
 import * as firestoreRepository from "../repositories/firestoreRepository";
 import { employeeSchema, employeeUpdateSchema } from "../schemas/employeeValidation";
 import { validate } from "../middleware/validate";
-import { ServiceError } from "../middleware/errorHandler";
+import { ServiceError, ValidationError, RepositoryError } from "../middleware/errorHandler";
 
 const COLLECTION: string = 'Employees';
 
@@ -71,7 +71,13 @@ export const updateEmployee = async (
     try{
         validate(employeeUpdateSchema, employee);
     }catch(error){
-        throw new ServiceError(`Failed to validate employee update.`);
+        if(error instanceof ValidationError)
+            throw new ValidationError(error.message);
+        else if(error instanceof RepositoryError){
+            throw new RepositoryError(error.message);
+        } else {
+            throw new ServiceError("Failed to update employee.");
+        }
     }
     await firestoreRepository.updateDocument(COLLECTION, id, employee);
     return { id: id, ...employee } as Employee;

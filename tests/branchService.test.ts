@@ -11,7 +11,7 @@ jest.mock("../src/api/v1/repositories/firestoreRepository", () => ({
 import * as repositoryModule from "../src/api/v1/repositories/firestoreRepository";
 import * as branchService from "../src/api/v1/services/branchService";
 import { Branch } from "../src/api/v1/models/branchModel";
-import { RepositoryError, ServiceError } from "../src/api/v1/middleware/errorHandler";
+import { RepositoryError, ServiceError, ValidationError } from "../src/api/v1/middleware/errorHandler";
 import {MockFirestoreData, MockFirestoreDocumentSnapshot, MockQuerySnapshot} from "./utils/mockFirebaseHelper"
 
 // Mock the repository module
@@ -208,11 +208,11 @@ describe("Branch Service", () => {
                 phone: "604-456-0022",
             };
 
-            const mockError = new ServiceError('Test error');
+            const mockError = new ValidationError('Test error');
             (repositoryModule.updateDocument as jest.Mock).mockRejectedValue(mockError);
 
             // Act & Assert
-            await expect(branchService.updateBranch(mockID, mockInput)).rejects.toThrow(ServiceError);
+            await expect(branchService.updateBranch(mockID, mockInput)).rejects.toThrow(ValidationError);
         });
 
         it('should handle RepositoryError', async () => {
