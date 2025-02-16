@@ -21,8 +21,8 @@ interface ExtendedError extends Error {
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error#custom_error_types
 export class ValidationError extends Error {
     public type: string;
-    public code?: string;
-    public statusCode?: number;
+    public code: string;
+    public statusCode: number;
 
     constructor(message: string, code?: string, statuscode?: number){
         super(message);
@@ -34,8 +34,8 @@ export class ValidationError extends Error {
 
 export class ServiceError extends Error {
     public type: string;
-    public code?: string;
-    public statusCode?: number;
+    public code: string;
+    public statusCode: number;
 
     constructor(message: string, code?: string, statuscode?: number){
         super(message);
@@ -47,8 +47,8 @@ export class ServiceError extends Error {
 
 export class RepositoryError extends Error {
     public type: string;
-    public code?: string;
-    public statusCode?: number;
+    public code: string;
+    public statusCode: number;
 
     constructor(message: string, code?: string, statuscode?: number){
         super(message);
@@ -89,23 +89,30 @@ export class RepositoryError extends Error {
  * });
  */
 const errorHandler = (
-    err: ExtendedError | ValidationError | ServiceError | RepositoryError,
+    err: ExtendedError | ValidationError | ServiceError | RepositoryError | null,
     req: Request,
     res: Response,
     _next: NextFunction // Underscore prefix indicates this parameter is required but unused
 ): void => {
+    if (!err) {
+        console.error("Error: null or undefined error received");
+        res.status(500).json(
+            errorResponse("An unexpected error occurred", "UNKNOWN_ERROR")
+        );
+        return;
+    }
 
     // Log the full error details for debugging
-    console.error(`Error: ${err.message} (Code: ${err.code})`);
+    console.error(`Error: ${err.message}`);
 
     // Handle specific types of errors
 	if (err instanceof ValidationError || 
         err instanceof ServiceError || 
         err instanceof RepositoryError) {
-		res.status(err.statusCode as number).json(errorResponse(err.message, err.code));
+		res.status(err.statusCode).json(errorResponse(err.message, err.code));
 	} else {
 		// Generic error response for unhandled errors
-		res.status(500).json(errorResponse("An unexpected error occurred"));
+		res.status(500).json(errorResponse("An unexpected error occurred", "UNKNOWN_ERROR"));
 	}
 };
 
