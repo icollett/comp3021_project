@@ -79,9 +79,10 @@ export const validateRequest = (schema: ObjectSchema): MiddlewareFunction => {
             // If validation passes, proceed to the next middleware/route handler
             next();
         } catch (error) {
+            next(error);
             // If validation fails, return a 400 Bad Request response
             // Type assertion is needed because catch blocks receive an unknown type
-            res.status(400).json({ error: (error as Error).message });
+            //res.status(400).json({ error: (error as Error).message });
         }
     };
 };
