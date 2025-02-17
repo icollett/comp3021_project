@@ -7,7 +7,7 @@ export const employeeSchema: ObjectSchema = Joi.object({
         "string.empty": "Name cannot be empty",
         "string.pattern.base": "Invalid name characters."
     }),
-    position: Joi.string().regex(/^\w+(?:\s+\w+)*$/).messages({
+    position: Joi.string().required().regex(/^\w+(?:\s+\w+)*$/).messages({
         "any.required": "Position is required",
         "string.empty": "Position cannot be empty.",
         "string.pattern.base": "Invalid position title format.",
@@ -17,9 +17,9 @@ export const employeeSchema: ObjectSchema = Joi.object({
         "string.empty": "Email cannot be empty.",
         "string.pattern.base": "Invalid email format."
     }),
-    branchID: Joi.string().required().alphanum().messages({
+    branchID: Joi.string().required().messages({
         "any.required": "BranchID is required",
-        "string.empty": "BranchhID cannot be empty.",
+        "string.empty": "BranchID cannot be empty.",
     }),
     department: Joi.string().optional().messages({
         "string.empty": "Department cannot be empty.",
@@ -34,6 +34,7 @@ export const employeeSchema: ObjectSchema = Joi.object({
 // https://stackoverflow.com/questions/43103400/is-it-possible-to-require-at-least-one-field-from-a-set-of-defined-fields
 export const employeeUpdateSchema: ObjectSchema = Joi.object({
     id: Joi.string().required().alphanum().messages({
+        "any.required": "ID is required",
         "string.empty": "ID cannot be empty",
     }),
     name: Joi.string().regex(/^\s*\w+(?:[^\w,]+\w+)*[^,\w]*$/).messages({
@@ -49,7 +50,7 @@ export const employeeUpdateSchema: ObjectSchema = Joi.object({
         "string.pattern.base": "Invalid email format."
     }),
     branchID: Joi.string().alphanum().messages({
-        "string.empty": "BranchhID cannot be empty.",
+        "string.empty": "BranchID cannot be empty.",
     }),
     department: Joi.string().messages({
         "string.empty": "Department cannot be empty.",

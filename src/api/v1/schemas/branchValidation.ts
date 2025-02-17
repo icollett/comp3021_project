@@ -9,7 +9,7 @@ export const branchSchema: ObjectSchema = Joi.object({
         "any.required": "Address is required",
         "string.empty": "Address cannot be empty.",
     }),
-    phone: Joi.string().regex(/(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/i).messages({
+    phone: Joi.string().required().regex(/(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/i).messages({
         "string.empty": "Phone number can not be empty.",
         "string.pattern.base": "Invalid phone number format.",
         "any.required": "Phone number is required."
@@ -30,7 +30,6 @@ export const branchUpdateSchema: ObjectSchema = Joi.object({
     phone: Joi.string().regex(/(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/i).messages({
         "string.empty": "Phone number can not be empty.",
         "string.pattern.base": "Invalid phone number format.",
-        "any.required": "Phone number is required."
     }),
 }).min(2).messages({
     "object.min": "Body attributes are required.",

@@ -34,7 +34,7 @@ export const validate = <T>(schema: ObjectSchema<T>, data: T): void => {
                 .map((x) => x.message)
                 .join(", ")}`
         );
-        console.log(err.message);
+        //console.log(err.message);
         // Map through all validation errors and join them into a single string
         throw err;
     }
