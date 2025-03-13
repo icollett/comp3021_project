@@ -1,7 +1,3 @@
-import request from "supertest";
-import {app, server} from "../src/app";
-import * as branchController from "../src/api/v1/controllers/branchController";
-
 jest.mock("../src/api/v1/controllers/branchController", () => ({
 	getAllBranches: jest.fn((req, res) => res.status(200).send()),
 	createBranch: jest.fn((req, res) => res.status(201).send()),
@@ -10,14 +6,30 @@ jest.mock("../src/api/v1/controllers/branchController", () => ({
 	deleteBranch: jest.fn((req, res) => res.status(200).send()),
 }));
 
+jest.mock("../config/firebase", () => ({
+    default: {
+        collection: jest.fn(),
+        runTransaction: jest.fn(),
+        batch: jest.fn()
+    }
+}));
+
+import request from "supertest";
+import app from "../src/app";
+import * as branchController from "../src/api/v1/controllers/branchController";
+
 describe("Branch API Endpoints", () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
     it("should call createBranch controller", async () => {
         const mockItem = {name: "Vancouver Branch", address: "1300 Burrard St, Vancouver, BC, V6Z 2C7", phone: "604-456-0022",};
         await request(app).post("/api/v1/branches").send(mockItem);
         expect(branchController.createBranch).toHaveBeenCalled();
     });
 
-    it("should call getAllBranchs controller", async () => {
+    it("should call getAllBranches controller", async () => {
         await request(app).get("/api/v1/branches");
         expect(branchController.getAllBranches).toHaveBeenCalled();
     });
@@ -40,8 +52,4 @@ describe("Branch API Endpoints", () => {
         await request(app).delete("/api/v1/branches/1");
         expect(branchController.deleteBranch).toHaveBeenCalled();
     });
-});
-
-afterAll(async () => {
-    await server.close();
 });

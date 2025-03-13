@@ -1,6 +1,16 @@
+jest.mock("../src/api/v1/services/branchService", () => ({
+    getAllBranches: jest.fn(),
+    createBranch: jest.fn(),
+    getBranch: jest.fn(),
+    updateBranch: jest.fn(),
+    deleteBranch: jest.fn(),
+}));
+
 import { Request, Response, NextFunction } from "express";
 import * as branchController from "../src/api/v1/controllers/branchController";
 import * as branchService from "../src/api/v1/services/branchService";
+import { Branch } from "../src/api/v1/models/branchModel";
+import { successResponse } from "../src/api/v1/models/responseModel";
 
 jest.mock("../src/api/v1/services/branchService");
 
@@ -18,7 +28,7 @@ describe("Branch Controller", () => {
 
     describe("getAllBranches", () => {
         it("should handle successful operation", async () => {
-            const mockItems: branchService.Branch[] = [
+            const mockItems: Branch[] = [
                 {
                     id: "1",
                     name: "Vancouver Branch",
@@ -36,10 +46,7 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branches Retrieved",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branches Retrieved"));
         });
     });
 
@@ -62,10 +69,20 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(201);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Created",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branch Created"));
+        });
+
+        it('should handle errors', async () => {
+            // Arrange
+            const mockError = new Error("Validation error: Name is required");
+            (branchService.createBranch as jest.Mock).mockRejectedValue(mockError);
+            mockReq = { params: {}, body: {address: "1300 Burrard St, Vancouver, BC, V6Z 2C7", phone: "604-456-0022",} };
+        
+            // Act
+            await branchController.createBranch(mockReq as Request, mockRes as Response, mockNext);
+        
+            // Assert
+            expect(mockNext).toHaveBeenCalledWith(mockError);
         });
     });
 
@@ -88,10 +105,7 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Found",
-                data: mockItems
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branch Found"));
         });
     });
 
@@ -112,10 +126,19 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Updated",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branch Updated"));
+        });
+
+        it('should handle errors', async () => {
+            // Arrange
+            const mockError = new Error("Test Error");
+            (branchService.updateBranch as jest.Mock).mockRejectedValue(mockError);
+        
+            // Act
+            await branchController.updateBranch(mockReq as Request, mockRes as Response, mockNext);
+        
+            // Assert
+            expect(mockNext).toHaveBeenCalledWith(mockError);
         });
     });
 
@@ -138,9 +161,7 @@ describe("Branch Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Deleted",
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse({message: "Branch Deleted"}));
         });
     });
 });

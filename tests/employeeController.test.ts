@@ -1,6 +1,18 @@
+jest.mock("../src/api/v1/services/employeeService", () => ({
+    getAllEmployees: jest.fn(),
+    createEmployee: jest.fn(),
+    getEmployee: jest.fn(),
+    updateEmployee: jest.fn(),
+    deleteEmployee: jest.fn(),
+    getBranchEmployees: jest.fn(),
+    getDepartmentEmployees: jest.fn(),
+}));
+
 import { Request, Response, NextFunction } from "express";
 import * as employeeController from "../src/api/v1/controllers/employeeController";
 import * as employeeService from "../src/api/v1/services/employeeService";
+import { Employee } from "../src/api/v1/models/employeeModel";
+import { successResponse } from "../src/api/v1/models/responseModel";
 
 jest.mock("../src/api/v1/services/employeeService");
 
@@ -18,7 +30,7 @@ describe("Employee Controller", () => {
 
     describe("getAllEmployees", () => {
         it("should handle successful operation", async () => {
-            const mockItems: employeeService.Employee[] = [
+            const mockItems: Employee[] = [
                 { id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
             ];
 
@@ -31,10 +43,9 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employees Retrieved",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(
+                mockItems,
+                "Employees Retrieved"));
         });
     });
 
@@ -60,10 +71,23 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(201);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee Created",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(
+                {id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
+                "Employee created"));
+        });
+
+        it('should handle errors', async () => {
+            // Arrange
+            const mockError = new Error("Validation error: Name is required");
+            (employeeService.createEmployee as jest.Mock).mockRejectedValue(mockError);
+            mockReq = { params: {}, body: {position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"} };
+
+      
+            // Act
+            await employeeController.createEmployee(mockReq as Request, mockRes as Response, mockNext);
+      
+            // Assert
+            expect(mockNext).toHaveBeenCalledWith(mockError);
         });
     });
 
@@ -89,10 +113,7 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee Found",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Employee Found"));
         });
     });
 
@@ -110,10 +131,21 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee Updated",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(
+                mockItems,
+                "Employee updated"));
+        });
+
+        it('should handle errors', async () => {
+            // Arrange
+            const mockError = new Error("Test Error");
+            (employeeService.updateEmployee as jest.Mock).mockRejectedValue(mockError);
+      
+            // Act
+            await employeeController.updateEmployee(mockReq as Request, mockRes as Response, mockNext);
+      
+            // Assert
+            expect(mockNext).toHaveBeenCalledWith(mockError);
         });
     });
 
@@ -139,15 +171,13 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Employee Deleted",
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse({message: "Employee Deleted"}));
         });
     });
 
     describe("getBranchEmployees", () => {
         it("should handle successful operation", async () => {
-            const mockItems: employeeService.Employee[] = [
+            const mockItems: Employee[] = [
                 { id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
                 { id: "2", name: "Amandeep Singh", position: "Customer Service Representative", department: "Customer Service", email: "amandeep.singh@pixell-river.com", phone: "780-555-0172", branchID: "2"},
                 { id: "3", name: "Maria Garcia", position: "Loan Officer", department: "Loans", email: "maria.garcia@pixell-river.com", phone: "204-555-0193", branchID: "3"},
@@ -164,16 +194,13 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Branch Staff Found",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Branch Staff Found"));
         });
     });
 
     describe("getDepartmentEmployees", () => {
         it("should handle successful operation", async () => {
-            const mockItems: employeeService.Employee[] = [
+            const mockItems: Employee[] = [
                 { id: "1", name: "Alice Johnson", position: "Branch Manager", department: "Management", email: "alice.johnson@pixell-river.com", phone: "604-555-0148", branchID: "1"},
                 { id: "2", name: "Amandeep Singh", position: "Customer Service Representative", department: "Customer Service", email: "amandeep.singh@pixell-river.com", phone: "780-555-0172", branchID: "2"},
                 { id: "3", name: "Maria Garcia", position: "Loan Officer", department: "Loans", email: "maria.garcia@pixell-river.com", phone: "204-555-0193", branchID: "3"},
@@ -191,10 +218,7 @@ describe("Employee Controller", () => {
             );
 
             expect(mockRes.status).toHaveBeenCalledWith(200);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                message: "Department Staff Found",
-                data: mockItems,
-            });
+            expect(mockRes.json).toHaveBeenCalledWith(successResponse(mockItems, "Department Staff Found"));
         });
     });
 });

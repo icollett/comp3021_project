@@ -1,6 +1,9 @@
 import express, { Router } from "express";
 import * as employeeController from "../controllers/employeeController";
 
+import { validateRequest } from "../middleware/validate";
+import { employeeSchema, employeeUpdateSchema } from "../schemas/employeeValidation";
+
 // express Router instance created. This instance will group all the employee-related routes.
 const router: Router = express.Router();
 
@@ -91,7 +94,7 @@ router.get("/", employeeController.getAllEmployees);
  *                 branchID:
  *                   type: string
  */
-router.post("/", employeeController.createEmployee);
+router.post("/", validateRequest(employeeSchema), employeeController.createEmployee);
 
 /**
  * @route GET /:id
@@ -193,7 +196,7 @@ router.get("/:id", employeeController.getEmployee);
  *                 branchID:
  *                   type: string
  */
-router.put("/:id", employeeController.updateEmployee);
+router.put("/:id", validateRequest(employeeUpdateSchema), employeeController.updateEmployee);
 
 /**
  * @route DELETE /:id

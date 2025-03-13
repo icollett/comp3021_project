@@ -1,11 +1,10 @@
-import { Server } from "http";
 import express, { Express } from "express";
-import morgan from "morgan";
 
 // import setupSwagger endpoint
 import setupSwagger from "../config/swagger";
 import employeeRoutes from "./api/v1/routes/employeeRoutes";
 import branchRoutes from "./api/v1/routes/branchRoutes";
+import errorHandler from "./api/v1/middleware/errorHandler";
 
 // initialize the express application
 const app: Express = express();
@@ -13,7 +12,6 @@ const app: Express = express();
 // setup swagger for api documentation
 setupSwagger(app);
 
-app.use(morgan("combined"));
 app.use(express.json());
 
 /**
@@ -53,14 +51,7 @@ app.get("/health", (req, res) => {
 app.use("/api/v1/employees", employeeRoutes);
 app.use("/api/v1/branches", branchRoutes);
 
-// initialize port as either string read from .env, or 3000 by default
-const PORT: string | 3000 = process.env.PORT || 3000;
-
-// initialize server for the application to listen for requests on the specified port
-const server: Server = app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`
-    );
-});
+app.use(errorHandler);
 
 // export app and server for testing
-export {app, server};
+export default app;
