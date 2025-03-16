@@ -5,9 +5,9 @@ const swaggerOptions: swaggerJsDoc.Options = {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "Task Management API Documentation",
+            title: "Employee and Branch Management API Documentation",
             version: "1.0.0",
-            description: "This is the API documentation for the Task Management applciation.",
+            description: "This is the API documentation for the employee and branch management appliciation.",
         },
         server: [
             {
@@ -23,7 +23,7 @@ const swaggerOptions: swaggerJsDoc.Options = {
                     bearerFormat: "JWT",
                 }
             }
-        }
+        },
     },
     // path to annotated files
     apis: ["./src/api/v1/routes/*.ts", "./src/api/v1/models/*.ts"],
