@@ -5,6 +5,7 @@
   "scripts": {
     "start": "ts-node src/server.ts",
     "build": "tsc",
+    "generate-docs": "ts-node scripts/generate-openapi.ts && npx @redocly/cli build-docs openapi.json --output api-docs/index.html",
     "test": "jest --detectOpenHandles",
     "test:watch": "jest --watch"
   },
@@ -13,6 +14,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@redocly/cli": "^1.33.1",
     "@types/jest": "^29.5.14",
     "@types/morgan": "^1.9.9",
     "@types/node": "^22.10.10",
