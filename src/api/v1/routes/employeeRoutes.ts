@@ -24,22 +24,7 @@ const router: Router = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   name:
- *                     type: string
- *                   position:
- *                     type: string
- *                   department:
- *                     type: string
- *                   email:
- *                     type: string
- *                   phone:
- *                     type: string
- *                   branchID:
- *                     type: string
+ *                 $ref: '#/components/schemas/Employee'
  */
 router.get("/", employeeController.getAllEmployees);
 
@@ -77,22 +62,7 @@ router.get("/", employeeController.getAllEmployees);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 position:
- *                   type: string
- *                 department:
- *                   type: string
- *                 email:
- *                   type: string
- *                 phone:
- *                   type: string
- *                 branchID:
- *                   type: string
+ *               $ref: '#/components/schemas/Employee'
  */
 router.post("/", validateRequest(employeeSchema), employeeController.createEmployee);
 
@@ -119,22 +89,7 @@ router.post("/", validateRequest(employeeSchema), employeeController.createEmplo
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 position:
- *                   type: string
- *                 department:
- *                   type: string
- *                 email:
- *                   type: string
- *                 phone:
- *                   type: string
- *                 branchID:
- *                   type: string
+ *               $ref: '#/components/schemas/Employee'
  */
 router.get("/:id", employeeController.getEmployee);
 
@@ -179,22 +134,7 @@ router.get("/:id", employeeController.getEmployee);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 position:
- *                   type: string
- *                 department:
- *                   type: string
- *                 email:
- *                   type: string
- *                 phone:
- *                   type: string
- *                 branchID:
- *                   type: string
+ *               $ref: '#/components/schemas/Employee'
  */
 router.put("/:id", validateRequest(employeeUpdateSchema), employeeController.updateEmployee);
 
@@ -244,27 +184,7 @@ router.delete("/:id", employeeController.deleteEmployee);
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   staff:
- *                     type: array
- *                     items:
- *                       type: object
- *                       properties:
- *                         id:
- *                           type: string
- *                         name:
- *                           type: string
- *                         position:
- *                           type: string
- *                         department:
- *                           type: string
- *                         email:
- *                           type: string
- *                         phone:
- *                           type: string
- *                         branchID:
- *                           type: string
+ *                 $ref: '#/components/schemas/Employee'
  */
 router.get("/branch/:id", employeeController.getBranchEmployees);
 
@@ -293,27 +213,7 @@ router.get("/branch/:id", employeeController.getBranchEmployees);
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   staff:
- *                     type: array
- *                     items:
- *                       type: object
- *                       properties:
- *                         id:
- *                           type: string
- *                         name:
- *                           type: string
- *                         position:
- *                           type: string
- *                         department:
- *                           type: string
- *                         email:
- *                           type: string
- *                         phone:
- *                           type: string
- *                         branchID:
- *                           type: string
+ *                 $ref: '#/components/schemas/Employee'
  */
 router.get("/department/:department", employeeController.getDepartmentEmployees);
 
