@@ -1,4 +1,7 @@
 import express, { Express } from "express";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // import setupSwagger endpoint
 import setupSwagger from "../config/swagger";
