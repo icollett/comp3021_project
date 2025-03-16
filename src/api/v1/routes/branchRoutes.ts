@@ -25,16 +25,7 @@ const router: Router = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   name:
- *                     type: string
- *                   address:
- *                     type: string
- *                   phone:
- *                     type: string
+ *                 $ref: '#/components/schemas/Branch'
  */
 router.get("/", branchController.getAllBranches);
 
@@ -64,16 +55,7 @@ router.get("/", branchController.getAllBranches);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 address:
- *                   type: string
- *                 phone:
- *                   type: string
+ *               $ref: '#/components/schemas/Branch'
  */
 router.post("/", validateRequest(branchSchema), branchController.createBranch);
 
@@ -100,16 +82,7 @@ router.post("/", validateRequest(branchSchema), branchController.createBranch);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 address:
- *                   type: string
- *                 phone:
- *                   type: string
+ *               $ref: '#/components/schemas/Branch'
  */
 router.get("/:id", branchController.getBranch);
 
@@ -148,16 +121,7 @@ router.get("/:id", branchController.getBranch);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 address:
- *                   type: string
- *                 phone:
- *                   type: string
+ *               $ref: '#/components/schemas/Branch'
  */
 router.put("/:id", validateRequest(branchUpdateSchema), branchController.updateBranch);
 
