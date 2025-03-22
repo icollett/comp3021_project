@@ -189,3 +189,23 @@ https://icollett.github.io/comp-3018_a5-docs/
 - You can always use your browser to open the openAPI doc index.html file in the api-docs folder.
 
 - When the server is running you can access the docs endpoint at 'http://localhost:3000/api-docs' to see the Swagger documentation.
+
+## Security layers:
+
+The app implements default security configurations for both the Helmet and Cors packages.
+```js client
+app.use(helmet())
+app.use(cors())
+```
+### [Helmet](https://www.npmjs.com/package/helmet)
+sets security headers for api responses to prtoect against some of the more well-known web vulnerabilities.
+
+Some of the headers set by default include:
+- **X-Frame-Options: SAMEORIGIN**, a legacy header meant to help prtect against clickjacking attacks. This header is meant for protecting older browsers. There is a more modern Content Security Policy([CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)) attribute '[frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors)' used by browsers to protect against things like cross-site-scripting attacks.
+- **X-XSS-Protection: 0**, the disabling of a buggy and exploitable legacy header for filtering cross-site-scripting. This legacy header was vulnerable to cross-site Leak([XS-Leaks](https://cybercx.com/blog/cross-site-leaks-attacks/)) attacks, allowing malicious actors to deduce information about the users identity.
+
+### [CORS](https://www.npmjs.com/package/cors#cors)
+
+dictates an access policy using HTTP headers. It indicates what domains and ports other than its own that a browser can load resources from. CORS allows browsers to enforce same-origin policy. The same-origin policy is a security measure that prevents malicious scripts from accessing resources that it should not have access to, like making additional requests to other servers the user never intended.
+
+By the default use of `cors()` here: `Access-Control-Allow-Origin: *`, meaning that currently the app can be accessed by any origin. For more details on configuring specific origins, see the package documentation examples.
