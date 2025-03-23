@@ -41,7 +41,7 @@ This is a Node.js app using Express. Follow the instructions below to set up and
 > - FIREBASE_PROJECT_ID,
 > - FIREBASE_PRIVATE_KEY,
 > - FIREBASE_CLIENT_EMAIL,
->- SWAGGER_SERVER_URL
+> - SWAGGER_SERVER_URL
 
 ### Usage:
 To send requests to the running API programmatically, you can try something like this javascript example:
@@ -201,7 +201,7 @@ app.use(cors())
 sets security headers for api responses to protect against some of the more well-known web vulnerabilities.
 
 Some of the headers set by default include:
-- **X-Frame-Options: SAMEORIGIN**, a legacy header meant to help prtect against clickjacking attacks. This header is meant for protecting older browsers. There is a more modern Content Security Policy([CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)) attribute '[frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors)' used by browsers to protect against things like cross-site-scripting attacks.
+- **X-Frame-Options: SAMEORIGIN**, a legacy header meant to help protect against clickjacking attacks. This header is meant for protecting older browsers. There is a more modern Content Security Policy([CSP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)) attribute '[frame-ancestors](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Security-Policy/frame-ancestors)' used by browsers to protect against things like cross-site-scripting attacks.
 - **X-XSS-Protection: 0**, the disabling of a buggy and exploitable legacy header for filtering cross-site-scripting. This legacy header was vulnerable to cross-site Leak([XS-Leaks](https://cybercx.com/blog/cross-site-leaks-attacks/)) attacks, allowing malicious actors to deduce information about the users identity.
 
 ### [CORS](https://www.npmjs.com/package/cors#cors)
