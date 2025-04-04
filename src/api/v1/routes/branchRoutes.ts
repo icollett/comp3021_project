@@ -25,16 +25,11 @@ const router: Router = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   name:
- *                     type: string
- *                   address:
- *                     type: string
- *                   phone:
- *                     type: string
+ *                 $ref: '#/components/schemas/Branch'
+ *       442:
+ *         description: Fetch failed.
+ *       500:
+ *         description: Internal server error.
  */
 router.get("/", branchController.getAllBranches);
 
@@ -59,21 +54,16 @@ router.get("/", branchController.getAllBranches);
  *               phone:
  *                 type: string
  *     responses:
- *       200:
+ *       201:
  *         description: The created branch.
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 address:
- *                   type: string
- *                 phone:
- *                   type: string
+ *               $ref: '#/components/schemas/Branch'
+ *       422:
+ *         description: Invalid request fields.
+ *       500:
+ *         description: Internal server error.
  */
 router.post("/", validateRequest(branchSchema), branchController.createBranch);
 
@@ -100,16 +90,13 @@ router.post("/", validateRequest(branchSchema), branchController.createBranch);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 address:
- *                   type: string
- *                 phone:
- *                   type: string
+ *               $ref: '#/components/schemas/Branch'
+ *       420:
+ *         description: Branch not found.
+ *       442:
+ *         description: Fetch failed.
+ *       500:
+ *         description: Internal server error.
  */
 router.get("/:id", branchController.getBranch);
 
@@ -148,16 +135,13 @@ router.get("/:id", branchController.getBranch);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 address:
- *                   type: string
- *                 phone:
- *                   type: string
+ *               $ref: '#/components/schemas/Branch'
+ *       422:
+ *         description: Invalid request fields.
+ *       442:
+ *         description: Branch not found.
+ *       500:
+ *         description: Internal server error.
  */
 router.put("/:id", validateRequest(branchUpdateSchema), branchController.updateBranch);
 
@@ -180,6 +164,10 @@ router.put("/:id", validateRequest(branchUpdateSchema), branchController.updateB
  *     responses:
  *       200:
  *         description: Branch deleted.
+ *       442:
+ *         description: Branch not found.
+ *       500:
+ *         description: Internal server error.
  */
 router.delete("/:id", branchController.deleteBranch);
 

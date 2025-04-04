@@ -1,4 +1,9 @@
 import express, { Express } from "express";
+import dotenv from "dotenv";
+import helmet from "helmet";
+import cors from "cors";
+
+dotenv.config();
 
 // import setupSwagger endpoint
 import setupSwagger from "../config/swagger";
@@ -9,6 +14,8 @@ import errorHandler from "./api/v1/middleware/errorHandler";
 // initialize the express application
 const app: Express = express();
 
+app.use(helmet());
+app.use(cors());
 // setup swagger for api documentation
 setupSwagger(app);
 

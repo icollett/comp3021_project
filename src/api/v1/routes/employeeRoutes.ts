@@ -24,22 +24,9 @@ const router: Router = express.Router();
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                   name:
- *                     type: string
- *                   position:
- *                     type: string
- *                   department:
- *                     type: string
- *                   email:
- *                     type: string
- *                   phone:
- *                     type: string
- *                   branchID:
- *                     type: string
+ *                 $ref: '#/components/schemas/Employee'
+ *       500:
+ *         description: Internal server error.
  */
 router.get("/", employeeController.getAllEmployees);
 
@@ -72,27 +59,18 @@ router.get("/", employeeController.getAllEmployees);
  *                 type: string
  *         description: Information needed to create an Employee.
  *     responses:
- *       200:
+ *       201:
  *         description: The employee with the specified ID.
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 position:
- *                   type: string
- *                 department:
- *                   type: string
- *                 email:
- *                   type: string
- *                 phone:
- *                   type: string
- *                 branchID:
- *                   type: string
+ *               $ref: '#/components/schemas/Employee'
+ *       422:
+ *         description: Invalid request fields.
+ *       442:
+ *         description: Employee creation failed.
+ *       500:
+ *         description: Internal server error.
  */
 router.post("/", validateRequest(employeeSchema), employeeController.createEmployee);
 
@@ -119,22 +97,13 @@ router.post("/", validateRequest(employeeSchema), employeeController.createEmplo
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 position:
- *                   type: string
- *                 department:
- *                   type: string
- *                 email:
- *                   type: string
- *                 phone:
- *                   type: string
- *                 branchID:
- *                   type: string
+ *               $ref: '#/components/schemas/Employee'
+ *       420:
+ *         description: Employee not found.
+ *       442:
+ *         description: Fetch failed.
+ *       500:
+ *         description: Internal server error.
  */
 router.get("/:id", employeeController.getEmployee);
 
@@ -179,22 +148,13 @@ router.get("/:id", employeeController.getEmployee);
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                 name:
- *                   type: string
- *                 position:
- *                   type: string
- *                 department:
- *                   type: string
- *                 email:
- *                   type: string
- *                 phone:
- *                   type: string
- *                 branchID:
- *                   type: string
+ *               $ref: '#/components/schemas/Employee'
+ *       422:
+ *         description: Invalid request fields.
+ *       442:
+ *         description: Update failed.
+ *       500:
+ *         description: Internal server error.
  */
 router.put("/:id", validateRequest(employeeUpdateSchema), employeeController.updateEmployee);
 
@@ -216,6 +176,10 @@ router.put("/:id", validateRequest(employeeUpdateSchema), employeeController.upd
  *     responses:
  *       200:
  *         description: Employee deleted.
+ *       442:
+ *         description: Employee not found.
+ *       500:
+ *         description: Internal server error.
  */
 router.delete("/:id", employeeController.deleteEmployee);
 
@@ -244,32 +208,16 @@ router.delete("/:id", employeeController.deleteEmployee);
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   staff:
- *                     type: array
- *                     items:
- *                       type: object
- *                       properties:
- *                         id:
- *                           type: string
- *                         name:
- *                           type: string
- *                         position:
- *                           type: string
- *                         department:
- *                           type: string
- *                         email:
- *                           type: string
- *                         phone:
- *                           type: string
- *                         branchID:
- *                           type: string
+ *                 $ref: '#/components/schemas/Employee'
+ *       442:
+ *         description: Fetch failed.
+ *       500:
+ *         description: Internal server error.
  */
 router.get("/branch/:id", employeeController.getBranchEmployees);
 
 /**
- * @route GET /department/:id
+ * @route GET /department/:department
  * @description Find employees by department name.
  * @note This could be a bit of information I want to find
  *
@@ -293,27 +241,11 @@ router.get("/branch/:id", employeeController.getBranchEmployees);
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   staff:
- *                     type: array
- *                     items:
- *                       type: object
- *                       properties:
- *                         id:
- *                           type: string
- *                         name:
- *                           type: string
- *                         position:
- *                           type: string
- *                         department:
- *                           type: string
- *                         email:
- *                           type: string
- *                         phone:
- *                           type: string
- *                         branchID:
- *                           type: string
+ *                 $ref: '#/components/schemas/Employee'
+ *       442:
+ *         description: Fetch failed.
+ *       500:
+ *         description: Internal server error.
  */
 router.get("/department/:department", employeeController.getDepartmentEmployees);
 
