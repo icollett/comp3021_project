@@ -55,6 +55,16 @@ app.get("/health", (req, res) => {
   // send JSON response with status, server uptime, current time, API version
 });
 
+/**
+ * No authorization is set for the endpoints.
+ * This means anyone with a valid token can modify these endpoints.
+ * 
+ * This falls under the OWASP categoty:
+ * A01: Broken Access Controls
+ * 
+ * Recomended fix:
+ * Have authorization in each of the emdpoints
+ */
 app.use("/api/v1/employees", employeeRoutes);
 app.use("/api/v1/branches", branchRoutes);
 
